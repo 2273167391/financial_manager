@@ -1,0 +1,17 @@
+<div class="page_bar">
+	<ul>
+		<li class="btn_page page_com" data-ng-class="datamodel.firstPage&&'disabled'" data-ng-click="getPageData($event,1)">首页</li>
+		<li class="btn_page page_com" data-ng-class="datamodel.onPage==false&&'disabled'" data-ng-click="getPageData($event,datamodel.currentPage-1)">上页</li>
+		<li class="page page_com" data-ng-repeat="p in datamodel.pageBarModel | filter:pageFilter" data-ng-class="isCurrentPage(p.p)&&'disabled'" data-ng-click="getPageData($event,p.p)">{{p.p}}</li>
+		<li class="btn_page page_com" data-ng-class="datamodel.nextPage==false&&'disabled'" data-ng-click="getPageData($event,datamodel.currentPage+1)">下页</li>
+		<li class="btn_page page_com" data-ng-class="datamodel.lastPage&&'disabled'" data-ng-click="getPageData($event,datamodel.totalPage)">末页</li>
+		<li>当前页：<span data-ng-bind-template="{{datamodel.currentPage}}/{{datamodel.totalPage}}"></span></li>
+		<li>
+			每页显示：
+			<select name="" class="choice_page" data-ng-model="pageSize" data-ng-blur="setPageSize()">
+				<option data-ng-repeat="pageSize in datamodel.choicePageSize" value="{{pageSize}}" data-ng-selected="pageSize==datamodel.pageSize">{{pageSize}}</option>
+			</select>
+		</li>
+		<li>跳转到：<input type="text" class="jump_page jump" data-ng-init="pageNum=1" data-ng-model="pageNum"/><input type="button" value="跳转" class="btn_jump jump" data-ng-click="jumpPage()"/></li>
+	</ul>
+</div>

@@ -1,0 +1,666 @@
+@charset "utf-8";
+/*
+	左右滚动动画
+	@animation_name:动画名称
+	@distance:滚动距离
+*/
+/*
+	@animation_name:动画名称
+	@duration:多长时间内完成动画
+	@timing-function:动画如果完成一个周期
+	@iteration-count:动画播放次数
+*/
+/*与边框相关*/
+/*字体*/
+/*绝对定位上下居中*/
+/*自定义复选框样式*/
+/*实心三角提示框*/
+/*左提示框*/
+/*表格样式*/
+/*按钮*/
+* {
+  margin: 0px;
+  padding: 0px;
+}
+ul {
+  list-style: none;
+}
+input {
+  outline: none;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+textarea {
+  outline: none;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+select {
+  outline: none;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+input[type="checkbox"] {
+  content: "";
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border: none;
+  vertical-align: center;
+  background: url("../images/check_mark_false.png") no-repeat;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked {
+  background: url("../images/check_mark_true.png") no-repeat;
+}
+/*start main_container*/
+#main_container {
+  position: absolute;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 35px;
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#main_container .main_header {
+  height: 10%;
+  width: 100%;
+  border: 2px solid #95b8e7;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+#main_container .main_header .logo {
+  width: 450px;
+  float: left;
+}
+#main_container .main_header .logo img {
+  width: 100%;
+  height: 100%;
+}
+#main_container .main_header .header_info {
+  list-style: none;
+  float: right;
+}
+#main_container .main_header .header_info li {
+  text-align: right;
+}
+#main_container .main_header .head_user {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #ff0000;
+  line-height: 35px;
+  text-align: left;
+  margin-right: 10px;
+}
+#main_container .main_header .head_time {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #3287d0;
+  line-height: 35px;
+  text-align: left;
+  margin-right: 10px;
+}
+#main_container .main_header .btn_com {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#main_container .main_header .self_info {
+  background-color: #17A2E8;
+}
+#main_container .main_header .self_info:hover {
+  background-color: #29B2F5;
+}
+#main_container .main_header .sign_out {
+  background-color: #91E22A;
+}
+#main_container .main_header .sign_out:hover {
+  background-color: #A2F53B;
+}
+#main_container .main_content {
+  height: 85%;
+  width: 100%;
+  border-left: 2px solid #95b8e7;
+  border: left #95b8e7 2px;
+  border-right: 2px solid #95b8e7;
+  border: right #95b8e7 2px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  clear: both;
+}
+#main_container .main_content .content_menu {
+  width: 13%;
+  height: 100%;
+  border-right: 2px solid #95b8e7;
+  border: right #95b8e7 2px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+#main_container .main_content .menu_item_title {
+  border-top: 1px solid #95b8e7;
+  border: top #95b8e7 1px;
+  border-bottom: 1px solid #95b8e7;
+  border: bottom #95b8e7 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  padding-left: 25px;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #147ce6;
+  line-height: 35px;
+  text-align: left;
+  cursor: pointer;
+}
+#main_container .main_content .menu_item_title:hover {
+  background-color: #3BCBFA;
+  color: #fff;
+}
+#main_container .main_content .menu_list {
+  list-style: none;
+  display: none;
+  overflow: auto;
+}
+#main_container .main_content .menu_list li {
+  border-bottom: 1px solid #95b8e7;
+  border: bottom #95b8e7 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  padding-left: 50px;
+  cursor: pointer;
+  color: #272822;
+}
+#main_container .main_content .menu_list li:hover {
+  background-color: #3BCBFA;
+  color: #fff;
+}
+#main_container .main_content .active {
+  display: block;
+}
+#main_container .main_content .content {
+  width: 87%;
+  height: 100%;
+  float: left;
+  padding: 5px 10px 30px 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  position: relative;
+  overflow: auto;
+}
+#main_container .main_footer {
+  height: 5%;
+  width: 100%;
+  border: 2px solid #95b8e7;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  text-align: center;
+}
+/*欢迎页样式*/
+.welcome_container {
+  background: #ffffff url("../images/welcome.jpg") no-repeat center center;
+  height: 100%;
+  width: 100%;
+}
+/*导航条*/
+.navigation_bar {
+  border-bottom: 1px solid #cecece;
+  border: bottom #cecece 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  margin-bottom: 10px;
+}
+/*用户信息*/
+.user_info_content {
+  overflow: hidden;
+}
+.user_info_content .user_head {
+  width: 300px;
+  float: left;
+}
+.user_info_content .user_head img {
+  display: block;
+  margin: 100px auto;
+  border-radius: 128px;
+}
+.user_info_content .uesr_info {
+  list-style: none;
+  float: left;
+}
+.user_info_content .uesr_info label {
+  display: inline-block;
+  width: 100px;
+}
+/*表格*/
+.base_table {
+  width: 100%;
+}
+.base_table th,
+.base_table td {
+  border-bottom: 1px solid #dddddd;
+  border: bottom #dddddd 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  padding-left: 10px;
+}
+.base_table th {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #555555;
+  line-height: 45px;
+  text-align: left;
+}
+.base_table td {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #555555;
+  line-height: 45px;
+  text-align: left;
+}
+/*按钮*/
+.btn {
+  background-color: #dedede;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #888888;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn:hover {
+  background-color: #cecece;
+}
+.btn_delete {
+  background-color: #ff0000;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn_delete:hover {
+  background-color: #ff3333;
+}
+.btn_look {
+  background-color: #1faff5;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn_look:hover {
+  background-color: #50c0f7;
+}
+.btn_add {
+  background-color: #0ae02c;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn_add:hover {
+  background-color: #28f548;
+}
+.btn_update {
+  background-color: #fd971f;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn_update:hover {
+  background-color: #fdae52;
+}
+.btn_success {
+  background-color: #7fe22a;
+  background-color: #a6e22e;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: left;
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+  border: none;
+}
+.btn_success:hover {
+  background-color: #9ae857;
+}
+.btn_success:hover {
+  background-color: #b9e85b;
+}
+/*分页*/
+.page_bar {
+  width: 100%;
+  margin: 30px auto;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 30px;
+  text-align: left;
+}
+.page_bar ul {
+  list-style: none;
+  clear: both;
+  margin: auto;
+  width: 75%;
+}
+.page_bar li {
+  float: left;
+  padding: 0px 10px;
+  text-align: center;
+}
+.page_bar .page_com {
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  border-left: none;
+  color: #08c;
+  cursor: pointer;
+}
+.page_bar .page_com:hover {
+  color: #1562B7;
+}
+.page_bar .page {
+  width: 45px;
+}
+.page_bar .btn_page {
+  width: 55px;
+}
+.page_bar .btn_page:nth-child(1) {
+  border-left: 1px solid #dddddd;
+  border: left #dddddd 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.page_bar .choice_page {
+  height: 30px;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 30px;
+  text-align: left;
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  outline: none;
+}
+.page_bar .jump {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  outline: none;
+}
+.page_bar .jump_page {
+  width: 60px;
+}
+.page_bar .btn_jump {
+  padding: 0px 10px;
+  background-color: #dedede;
+  color: #888;
+  border-left: none;
+}
+.page_bar .btn_jump:hover {
+  background-color: #cecece;
+}
+.page_bar .disabled {
+  color: #555;
+}
+.page_bar .disabled:hover {
+  color: #555555;
+}
+.account_info {
+  display: none;
+}
+.account_info label {
+  display: inline-block;
+  width: 100px;
+}
+.account_info .remark {
+  display: inline-block;
+  width: 220px;
+  word-break: break-all;
+  word-wrap: break-word;
+  position: relative;
+}
+/*搜索框*/
+.search_box {
+  border: 1px solid #159bfa;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.search_box .search_box_title {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 35px;
+  text-align: left;
+  background-color: #1FAFF5;
+  text-indent: 20px;
+}
+.search_box .search_info li {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 55px;
+  text-align: left;
+  float: left;
+  margin-left: 20px;
+}
+.search_box .search_info input {
+  height: 32px;
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  padding-left: 10px;
+}
+.search_box .search_info select {
+  height: 32px;
+  border: 1px solid #dddddd;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+/*账目类型*/
+.account_type {
+  display: none;
+}
+.account_type label {
+  display: inline-block;
+  width: 100px;
+}
+.account_type li {
+  height: 45px;
+}
+.account_type input[type="text"] {
+  height: 30px;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 30px;
+  text-align: left;
+}
+.account_type input[type="button"] {
+  border: none;
+}
+/*添加账目*/
+.add_account td {
+  height: 45px;
+}
+.add_account input[type="text"] {
+  height: 25px;
+  width: 250px;
+}
+.add_account select {
+  height: 25px;
+}
+.add_account textarea {
+  height: 80px;
+  width: 250px;
+}
+label.error {
+  color: red;
+  padding-left: 10px;
+}
+/*自定义角色标签*/
+.role_label {
+  display: none;
+  overflow: auto;
+  width: 400px;
+  height: 364px;
+}
+/*角色权限*/
+.role_auth {
+  margin: 10px 20px 40px 20px;
+  box-sizing: border-box;
+}
+/*角色权限按钮组*/
+.role_auth_btns {
+  position: absolute;
+  bottom: 0px;
+  background: linear-gradient(#e6e6e6, #c1c1c1);
+  width: 400px;
+  border-top: 1px solid #d5d5d5;
+  border: top #d5d5d5 1px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  height: 40px;
+}
+.role_auth_btns span {
+  float: right;
+  padding: 0px 10px;
+  margin-top: 5px;
+  margin-right: 10px;
+  line-height: 30px;
+}
+/*添加修改角色*/
+.add_update_role label {
+  display: inline-block;
+  width: 100px;
+  margin-left: 30px;
+}
+.add_update_role ul {
+  margin-top: 20px;
+}
+.add_update_role li {
+  line-height: 50px;
+}
+.add_update_role input[type="text"] {
+  height: 30px;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 30px;
+  text-align: left;
+}

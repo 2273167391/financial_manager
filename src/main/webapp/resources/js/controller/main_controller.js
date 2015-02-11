@@ -1,0 +1,26 @@
+mainApp.controller('mainController',['$scope','$location','mainService',function($scope,$location,mainService){
+	//获取当前登录的用户
+	mainService.getSessionUsers().then(function(user){
+		//绑定用户信息
+		$scope.user=user;
+	});
+	//获取菜单
+	mainService.getMenu().then(function(menus){
+		$scope.menus=menus;
+	});
+	//获取主体部分
+	$scope.getContent=function(url){
+		$location.path(url);//设置路由路径
+	};
+	
+	//退出
+	$scope.signOut=function(){
+		dialog.confirm({
+			msg:'确定要退出么？',
+			msgIcon:3,
+			determine:function(){
+				location.href="main/sign_out";
+			}
+		});
+	};
+}]);

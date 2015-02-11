@@ -1,0 +1,34 @@
+<div data-ng-controller="userController">
+	<p class="navigation_bar">当前位置：用户列表</p>
+	<table class="base_table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th width="10%">编号</th>
+				<th width="10%">用户名</th>
+				<th width="10%">性别</th>
+				<th width="10%">角色</th>
+				<th width="10%">联系电话</th>
+				<th width="15%">电子邮箱</th>
+				<th width="15%">创建时间</th>
+				<th>操作</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="user in showRecords">
+				<td>{{user.uId}}</td>
+				<td>{{user.userName}}</td>
+				<td><span data-ng-bind="user.sex==1?'男':'女'"></span></td>
+				<td>{{user.role.roleName}}</td>
+				<td>{{user.phone}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>
+					<span class="btn_look" data-ng-click="seeUser(user.uId)">查看</span>
+					<span class="btn_update" data-ng-click="updateUser(user.uId)">修改</span>
+					<span class="btn_delete" data-ng-click="deleteAuth(auth.authId)">删除</span>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

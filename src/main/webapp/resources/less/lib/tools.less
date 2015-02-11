@@ -1,0 +1,292 @@
+@charset "utf-8";
+
+/*
+	左右滚动动画
+	@animation_name:动画名称
+	@distance:滚动距离
+*/
+.rolling_around_animation(@animation_name,@distance:600px){
+	@keyframes @animation_name{
+		to{background-position:0 100%;}
+		from{background-position:@distance 100%;}
+	}
+	@-webkit-keyframes @animation_name{
+		to{background-position:0 100%}
+		from{background-position:@distance 100%;}
+	}
+	@-moz-keyframes @animation_name{
+		to{background-position:0 100%}
+		from{background-position:@distance 100%;}
+	}
+
+	@-ms-keyframes @animation_name{
+		to{background-position:0 100%}
+		from{background-position:@distance 100%;}
+	}
+
+	@-o-keyframes @animation_name{
+		to{background-position:0 100%}
+		from{background-position:@distance 100%;}
+	}
+}
+/*
+	@animation_name:动画名称
+	@duration:多长时间内完成动画
+	@timing-function:动画如果完成一个周期
+	@iteration-count:动画播放次数
+*/
+.animation(@animation_name,@duration:20s,@timing-funtion:linear,@iteration-count:infinite){
+	animation:@arguments;
+	-webkit-animation:@arguments;
+	-moz-animation:@arguments;
+	-ms-animation:@arguments;
+	-o-animation:@arguments;
+}
+
+.margin(@tb:10px,@lr:auto){
+	margin:@tb @lr;
+}
+
+.margin-top(@t:10px){
+	margin-top:@t;
+}
+
+.margin-right(@r:10px){
+	margin-right:@r;
+}
+
+.margin-bottom(@b:10px){
+	margin-bottom:@b;
+}
+
+.margin-left(@l:10px){
+	margin-left:@l;
+}
+
+/*与边框相关*/
+.border(top,@w:1px,@c:#eee,@style:solid){
+	border-top:@w @style @c;
+}
+
+.border(right,@w:1px,@c:#eee,@style:solid){
+	border-right:@w @style @c;
+}
+
+.border(bottom,@w:1px,@c:#eee,@style:solid){
+	border-bottom:@w @style @c;
+}
+
+.border(left,@w:1px,@c:#eee,@style:solid){
+	border-left:@w @style @c;
+}
+
+.border(@w:1px,@c:#eee,@style:solid){
+	border:@w @style @c;
+	.box-sizing();
+}
+
+.border-shadow(@h-shadow:2px,@v-shadow:2px,@blur:10px,@color:#555){
+	box-shadow: @arguments;
+	-webkit-box-shadow:@arguments;
+	-moz-box-shadow:@arguments;
+	-o-box-shadow:@arguments;
+}
+
+.border-radius(@t:10px,@r:10px,@b:10px,@l:10px){
+	border-radius:@t @r @b @l;
+	-webkit-border-radius:@t @r @b @l;
+	-moz-border-radius:@t @r @b @l;
+	-o-border-radius:@t @r @b @l;
+}
+
+.box-sizing(){
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-o-box-sizing:border-box;
+}
+
+/*字体*/
+
+.font(@size:16px,@color:#555,@line_height:35px,@text-align:left,@weight:normal){
+	font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+	font-weight: @weight;
+	font-size: @size;
+	color:@color;
+	line-height: @line_height;
+	text-align: @text-align;
+}
+
+/*绝对定位上下居中*/
+.absolute_top_bottom_center(){
+	position: absolute;
+	top:0;
+	bottom:0;
+	margin:auto;
+}
+
+.absolute_left_right_center(){
+	position: absolute;
+	left:0;
+	right:0;
+	margin:auto;
+}
+
+/*自定义复选框样式*/
+.input_checkbox_style(){
+	input[type="checkbox"]{
+		content:"";
+		-webkit-appearance:none;
+		-moz-appearance:none;
+		-ms-appearance:none;
+		-o-appearance:none;
+		appearance:none;
+		display: inline-block;
+		height:16px;
+		width:16px;
+		border:none;
+		vertical-align: center;
+		background: url("../images/check_mark_false.png") no-repeat;
+		outline: none;
+		margin-right: 10px;
+		cursor: pointer;
+	}
+
+	input[type="checkbox"]:checked{
+		background: url("../images/check_mark_true.png") no-repeat;
+	}
+}
+
+
+
+/*实心三角提示框*/
+/*左提示框*/
+.solid_triangle_prompt_box(left,@w:110px,@h:25px){
+	&:before{
+		content:"";
+		height:0px;
+		width:0px;
+		border-width: 7px;
+		border-color: transparent #eb4f38 transparent transparent;
+		border-style:solid;
+		.absolute_top_bottom_center();
+		left:-13px;
+	}
+}
+
+.solid_triangle_prompt_box(top,@w:110px,@h:25px){
+	&:before{
+		content:"";
+		height:0px;
+		width:0px;
+		border-width: 7px;
+		border-color:  transparent  transparent  #eb4f38 transparent ;
+		border-style:solid;
+		position: absolute;
+		left:10px;
+		top:-12px;
+	}
+}
+
+.solid_triangle_prompt_box(@_,@w:110px,@h:25px){
+	.absolute_top_bottom_center();
+	left:100%;
+	min-width:@w;
+	background: #eb4f38;
+	.font(12px,#fff,25px);
+	height:@h;
+	padding:0px 10px;
+	.box-sizing();
+	.border-radius(5px,5px,5px,5px);
+	&:before{
+		content:"";
+		height:0px;
+		width:0px;
+		border-width: 7px;
+		border-color: transparent #eb4f38 transparent transparent;
+		border-style:solid;
+		.absolute_top_bottom_center();
+		left:-13px;
+	}
+}
+
+
+/*表格样式*/
+.table_style(){
+	width:100%;
+	th,td{
+		.border(bottom,1px,#DDDDDD);
+		padding-left: 10px;
+	}
+	th{
+		.font(16px,#555,45px,left,bold);
+	}
+	td{
+		.font(16px,#555,45px);
+	}
+}
+
+
+/*按钮*/
+.btn(error,@back:red){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(success,@back:#7FE22A){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(default,@back:#DEDEDE){
+	background-color: @back;
+	.font(14px,#888,30px);
+	&:hover{
+		background-color: #cecece;
+	}
+}
+
+.btn(look,@back:#1FAFF5){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(add,@back:#0AE02C){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(update,@back:#FD971F){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(success,@back:#A6E22E){
+	background-color: @back;
+	.font(14px,#fff,30px);
+	&:hover{
+		background-color: lighten(@back, 10%);
+	}
+}
+
+.btn(@_,@back:#DEDEDE){
+	display: inline-block;
+	padding:0 10px;
+	cursor: pointer;
+	border:none;
+}

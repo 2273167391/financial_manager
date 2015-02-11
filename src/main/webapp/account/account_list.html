@@ -1,0 +1,50 @@
+<div data-ng-controller="accountController">
+	<p class="navigation_bar">
+		当前位置：
+		<span data-ng-if="datamodel.paramters.status==1">收入管理</span>
+		<span data-ng-if="datamodel.paramters.status==0">支出管理</span>
+	</p>
+	<div class="search_box">
+		<p class="search_box_title">搜索</p>
+		<form action="" method="POST">
+			<ul class="search_info">
+				<li><label>按时间：</label><input type="text" data-ng-model="startTime" readonly="readonly" id="start" class="laydate-icon" data-ng-click="getStartTime()"/>-<input type="text" id="end" readonly="readonly" data-ng-model="endTime" class="laydate-icon" data-ng-click="getEndTime()"/></li>
+				<li><label>按金额：</label><input type="text" data-ng-model="minMoney" id="min_money"/>-<input type="text" data-ng-model="maxMoney" id="max_money"/></li>
+				<li><label>&nbsp;</label><span class="btn_look" data-ng-click="search()">搜索</span></li>
+			</ul>
+		</form>
+	</div>
+	<table class="base_table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th width="10%">编号</th>
+				<th width="20%">账目名称</th>
+				<th width="15%">用途</th>
+				<th width="10%">类型</th>
+				<th width="10%">金额/元</th>
+				<th width="20%">创建时间</th>
+				<th>操作</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="account in showRecords">
+				<td>{{account.aId}}</td>
+				<td>{{account.accountName}}</td>
+				<td>{{account.accountType.typeName}}</td>
+				<td>
+					<span data-ng-if="account.status==1">收入</span>
+					<span data-ng-if="account.status==0">支出</span>
+				</td>
+				<td>{{account.money|number:2}}</td>
+				<td>{{account.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>
+					<span class="btn_look" data-ng-click="seeAccount(account.aId)">查看</span>
+					<span class="btn_delete" data-ng-click="deleteAccount(account.aId)">删除</span>
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	<div pagination show-records="showRecords" datamodel="datamodel" getpagedatas="getPageDatas()" page="page"></div>
+	<div class="account_info" account account-info="accountInfo"></div>
+</div>

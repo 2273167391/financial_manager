@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-ng-app="com.tenghu.fiancial.login.app">
+<head>
+	<title>个人财务管理</title>
+	<meta charset="utf-8"/>
+	<meta name="keywords" content="个人财务管理"/>
+	<meta name="description" content="个人财务管理是对个人的日常的开支进行管理，方便于每个月对财务的统计"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="resources/css/login.css"/>
+	<link rel="shortcut icon" href="resources/images/ico/favicon.ico" mce_href="resources/images/ico/favicon.ico" type="image/x-icon">
+	<script src="resources/js/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/form.validate.js"></script>
+	<script type="text/javascript" src="resources/js/layer/layer.min.js"></script>
+</head>
+<body>
+	<div id="login_container" data-ng-controller="loginController">
+		<p class="title">用户登录</p>
+		<div class="login_box">
+			<form action="index/login" method="POST" id="loginForm">
+				<div class="login_box_form">
+					<div class="login_username">
+						<input type="text" name="username" data-ng-model="username" placeholder="请输入用户名"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_pwd">
+						<input type="password" name="password" data-ng-model="password" placeholder="请输入密码"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_code">
+						<input type="text" name="code" placeholder="请输入验证码"/>
+						<img src="index/codeServlet" title="验证码" alt="验证码" width="80" height="35" onclick="getCode(this)"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+				</div>
+				<div class="login_submit">
+					<span><input type="checkbox" style="vertical-align: bottom;" name="rem" checked="checked" value="1"/>记住我</span>
+					<span><input type="submit" value="登录"/></span>
+				</div>
+			<form>
+		</div>
+		<p class="login_footer">版权所有&nbsp;&nbsp;&nbsp;腾虎科技有限公司</p>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#loginForm").loginForm({
+				prompt_box_class:"triangle_prompt_box"
+			});
+
+			//设置登录框位置
+			var wHeight=$(window).height();
+			var loginContainer=$("#login_container");
+			loginContainer.css({
+				"left":($(window).width()-loginContainer.width())/2
+			}).animate(
+				{"top":(wHeight-loginContainer.height())/2-50},300,
+				function(){
+					$(this).animate({"top":$(this).offset().top-50},100,function(){
+						$(this).animate({"top":$(this).offset().top+50},100);
+					});
+				});
+		});
+		//获取验证码
+		function getCode(obj){
+			$(obj).attr("src","index/codeServlet?time="+new Date().getTime());
+		}
+		
+		var loginApp=angular.module('com.tenghu.fiancial.login.app',[]);
+		loginApp.factory("loginService",["$http","$q",function($http,$q){
+			return {
+				getCookieInfo:function(){
+					var deffered=$q.defer();
+					$http({
+						url:"index/get_cookie",
+						method:"GET"
+					}).success(function(data,status,headers,config){
+						deffered.resolve(data);
+					}).error(function(data,status,headers,config){
+						deffered.reject(data);
+					});
+					return deffered.promise;
+				}
+			};
+		}]);
+		loginApp.controller("loginController",["$scope","loginService",function($scope,loginService){
+			loginService.getCookieInfo().then(function(data){
+				$scope.username=data.username;
+				$scope.password=data.password;
+			});
+		}]);
+	</script>
+</body>
+</html>

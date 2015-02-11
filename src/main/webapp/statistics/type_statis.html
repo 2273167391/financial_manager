@@ -1,0 +1,23 @@
+<div data-ng-controller="typeStatisticsController">
+	<p class="navigation_bar">当前位置：分类统计</p>
+	<div class="search_box">
+		<p class="search_box_title">统计</p>
+		<form action="" method="POST">
+			<ul class="search_info">
+				<li>
+					<label>选择月：</label>
+					<input type="text" data-ng-model="month" readonly="readonly" id="month" class="laydate-icon" data-ng-click="getMonth()"/>
+				</li>
+				<li>
+					<label>支出/收入：</label>
+					<select data-ng-model="status">
+						<option value="1" selected="selected">收入</option>
+						<option value="0">支出</option>
+					</select>
+				</li>
+				<li><label>&nbsp;</label><span class="btn_look" data-ng-click="statistics()">统计</span></li>
+			</ul>
+		</form>
+	</div>
+	<div id="chart-container"></div>
+</div>

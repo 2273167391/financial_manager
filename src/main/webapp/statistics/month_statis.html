@@ -1,0 +1,29 @@
+<div data-ng-controller="monthStatisticsController">
+	<p class="navigation_bar">当前位置：按月统计</p>
+	<div class="search_box">
+		<p class="search_box_title">统计</p>
+		<form action="" method="POST">
+			<ul class="search_info">
+				<li>
+					<label>选择月：</label>
+					<input type="text" data-ng-model="month" readonly="readonly" id="month" class="laydate-icon" data-ng-click="getMonth()"/>
+				</li>
+				<li>
+					<label>支出/收入：</label>
+					<select data-ng-model="status">
+						<option value="1" selected="selected">收入</option>
+						<option value="0">支出</option>
+					</select>
+				</li>
+				<li>
+					<label>类型：</label>
+					<select data-ng-options="type.atId as type.typeName for type in accountTypes" data-ng-model="typeId" class="typeId">
+						<option value="">--请选择--</option>
+					</select>
+				</li>
+				<li><label>&nbsp;</label><span class="btn_look" data-ng-click="statistics()">统计</span></li>
+			</ul>
+		</form>
+	</div>
+	<div id="chart-container"></div>
+</div>

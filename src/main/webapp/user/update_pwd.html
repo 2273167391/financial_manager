@@ -1,0 +1,31 @@
+<div>
+	<p class="navigation_bar">当前位置：修改密码</p>
+	<form action="user/update_pwd" id="updatePwdForm" method="post">
+		<table>
+			<tr>
+				<td width="20%">旧密码：</td>
+				<td width="40%"><input type="password" name="oldPwd"/></td>
+				<td width="30%"></td>
+			</tr>
+			<tr>
+				<td>新密码：</td>
+				<td><input type="password" name="newPwd" id="pwd"/></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>再次输入新密码：</td>
+				<td><input type="password" name="againPwd"/></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><input type="submit" value="修改" class="btn_add"/></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script>
+	$(document).ready(function(){
+		$("#updatePwdForm").updatePwdForm();
+	});
+</script>

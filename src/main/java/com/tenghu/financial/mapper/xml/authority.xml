@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.AuthorityMapper">
+	<!-- 结果映射 -->
+	<resultMap type="authority" id="Authority">
+		 <id property="authId" column="auth_id"/>
+		 <result property="authName" column="auth_name"/>
+		 <result property="url" column="url"/>
+		 <result property="level" column="level"/>
+		 <result property="createTime" column="create_time"/>
+		 <association property="parentAuth" javaType="authority" column="parent_ids" select="queryAuthorityById"/>
+		 <collection property="childList" ofType="authority" column="auth_id" select="queryChildAuthorityById"/>
+	</resultMap>
+	
+	<!-- 除开主键id的所有字段 -->
+	<sql id="authority_basic_clm">
+		auth_name,parent_ids,url,level,create_time
+	</sql>
+	
+	<!-- 所有字段 -->
+	<sql id="authority_all_clm">
+		auth_id,<include refid="authority_basic_clm"/>
+	</sql>
+	
+	<!-- 表名 -->
+	<sql id="tab_authority">tab_authority</sql>
+	
+	<!-- 公用查询语句 -->
+	<sql id="authority_select_sql">
+		select <include refid="authority_all_clm"/> from <include refid="tab_authority"/>
+	</sql>
+	
+	<!-- 获取所有权限 -->
+	<select id="queryAllAuthority" resultMap="Authority">
+		<include refid="authority_select_sql"/>
+	</select>
+	
+	<!-- 根据权限等级获取权限 -->
+	<select id="queryAuthorityByLevel" resultMap="Authority" parameterType="int">
+		<include refid="authority_select_sql"/>
+		<where>level=#{level}</where>
+	</select>
+	
+	<!-- 根据权限id查询权限 -->
+	<select id="queryAuthorityById" parameterType="int" resultMap="Authority">
+		<include refid="authority_select_sql"/> 
+		<where>auth_id=#{id}</where>
+	</select>
+	
+	<!-- 根据id查询下级权限 -->
+	<select id="queryChildAuthorityById" parameterType="int" resultMap="Authority">
+		<include refid="authority_select_sql"/> 
+		<where>parent_ids=#{id}</where>
+	</select>
+	
+	<!-- 根据权限id数组查询权限 -->
+	<select id="queryAuthorityByIds" resultMap="Authority">
+		<include refid="authority_select_sql"/> 
+		<where>
+			auth_id in 
+			<foreach collection="array" item="id" open="(" separator="," close=")">#{id}</foreach>
+		</where>
+	</select>
+	
+	<!-- 分页查询权限 -->
+	<select id="queryAuthorityPage" parameterType="pageBean" resultMap="Authority">
+		<include refid="authority_select_sql"/>
+		order by create_time desc 
+		limit #{startNum},#{pageSize}
+	</select>
+	
+	<!-- 添加权限 -->
+	<insert id="addAuth" parameterType="Authority">
+		insert into 
+		<include refid="tab_authority"/>(<include refid="authority_basic_clm"/>)
+		values(#{authName},#{parentAuth.authId},#{url},#{level},#{createTime})
+	</insert>
+	
+	<!-- 删除权限 -->
+	<delete id="deleteAuth" parameterType="int">
+		delete from <include refid="tab_authority"/> 
+		<where>auth_id=#{id}</where>
+	</delete>
+	
+	<!-- 修改权限 -->
+	<update id="updateAuth" parameterType="Authority">
+		update <include refid="tab_authority"/>
+		<set>
+			<if test="authName!='' and authName!=null">auth_name=#{authName}</if>
+			,url=#{url}
+		</set>
+		<where>auth_id=#{authId}</where>
+	</update>
+</mapper>

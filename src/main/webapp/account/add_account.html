@@ -1,0 +1,51 @@
+<div data-ng-controller="addAccountController" class="add_account">
+	<p class="navigation_bar">当前位置：添加账目</p>
+	<form action="account/add" method="POST" id="addAccountForm">
+		<table>
+			<tr>
+				<td width="20%">账目名称：</td>
+				<td width="40%"><input type="text" name="accountName"/></td>
+				<td width="30%"></td>
+			</tr>
+			<tr>
+				<td>用途：</td>
+				<td><select name="typeId">
+					<option data-ng-repeat="type in accountTypes" value="{{type.atId}}">{{type.typeName}}</option>
+				</select></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>类型：</td>
+				<td><select name="status" id="status">
+					<option value="1" selected="selected">收入</option>
+					<option value="0">支出</option>
+				</select></td>
+				<td ></td>
+			</tr>
+			<tr>
+				<td>金额：</td>
+				<td><input type="text" name="money"/></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>日期：</td>
+				<td><input type="text" class="laydate-icon" id="date" name="createTime" data-ng-click="getDate()" readonly="readonly"/></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td valign="top">备注：</td>
+				<td><textarea rows="5" cols="10" name="remark"></textarea></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="2"><input type="submit" value="添加" class="btn_add"/></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#addAccountForm").addAccountForm();
+	});
+</script>

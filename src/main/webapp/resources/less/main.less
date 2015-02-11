@@ -1,0 +1,376 @@
+@charset "utf-8";
+@import "lib/tools.less";
+*{margin:0px;padding:0px;}
+ul{list-style: none}
+input{outline: none;.border(1px,#CECECE)}
+textarea{outline: none;.border(1px,#CECECE)}
+select{outline: none;.border(1px,#CECECE)}
+a{text-decoration: none;}
+.input_checkbox_style();
+
+/*start main_container*/
+#main_container{
+	position: absolute;
+	.font(14px,#555);
+	height:100%;
+	width: 100%;
+	overflow: hidden;
+	
+	.main_header{
+		height:10%;
+		width:100%;
+		.border(2px,#95B8E7);
+
+		.logo{
+			width:450px;
+			float: left;
+			img{
+				width: 100%;
+				height:100%;
+			}
+		}
+
+		.header_info{
+			list-style: none;
+			float: right;
+			li{text-align: right;}
+		}
+
+		.head_user{
+			.font(16px,red);
+			margin-right: 10px;
+		}
+			
+
+		.head_time{
+			.font(16px,#3287D0);
+			margin-right: 10px;
+		}
+
+		.btn_com{
+			.font(14px,#FFF,30px);
+			display: inline-block;
+			padding:0 10px;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+
+		.self_info{
+			background-color: #17A2E8;
+			&:hover{
+				background-color: #29B2F5;
+			}
+		}
+
+		.sign_out{
+			background-color: #91E22A;
+			&:hover{
+				background-color: #A2F53B;
+			}
+		}
+	}
+
+	.main_content{
+		height:85%;
+		width:100%;
+		.border(left,2px,#95B8E7);
+		.border(right,2px,#95B8E7);
+		clear: both;
+		.content_menu{
+			width:13%;
+			height:100%;
+			.border(right,2px,#95B8E7);
+			float: left;
+			overflow: hidden;
+		}
+
+		.menu_item_title{
+			.border(top,1px,#95B8E7);
+			.border(bottom,1px,#95B8E7);
+			padding-left: 25px;
+			.font(16px,#147CE6);
+			cursor: pointer;
+			&:hover{
+				background-color: #3BCBFA;
+				color: #fff;
+			}
+		}
+
+		.menu_list{
+			list-style: none;
+			display: none;
+			overflow: auto;
+			li{
+				.border(bottom,1px,#95B8E7);
+				padding-left: 50px;
+				cursor: pointer;
+				color:#272822;
+				&:hover{
+					background-color: #3BCBFA;
+					color: #fff;
+				}
+			}
+		}
+
+		.active{
+			display: block;
+		}
+
+		.content{
+			width:87%;
+			height:100%;
+			float:left;
+			padding:5px 10px 30px 10px;
+			.box-sizing();
+			position: relative;
+			overflow: auto;
+		}
+
+	}
+
+	.main_footer{
+		height:5%;
+		width:100%;
+		.border(2px,#95B8E7);
+		text-align: center;
+	}
+}
+
+/*欢迎页样式*/
+.welcome_container{
+	background: #fff url("../images/welcome.jpg") no-repeat center center;
+	height:100%;
+	width:100%;
+}
+
+/*导航条*/
+.navigation_bar{
+	.border(bottom,1px,#cecece);
+	margin-bottom: 10px;
+}
+
+/*用户信息*/
+.user_info_content{
+	overflow: hidden;
+	.user_head{
+		width:300px;
+		float: left;
+		img{
+			display: block;
+			margin:100px auto;
+			border-radius: 128px;
+		}
+	}
+
+	.uesr_info{
+		list-style: none;
+		float: left;
+		label{
+			display: inline-block;
+			width:100px;
+		}
+	}
+}
+
+/*表格*/
+.base_table{
+	.table_style();
+}
+
+/*按钮*/
+.btn{.btn(default);}
+
+.btn_delete{.btn(error);}
+
+.btn_look{.btn(look);}
+
+.btn_add{.btn(add);}
+
+.btn_update{.btn(update);}
+
+.btn_success{.btn(success);}
+
+
+/*分页*/
+.page_bar{
+	width: 100%;
+	margin:30px auto;
+	.font(14px,#555,30px);
+	ul{
+		list-style: none;
+		clear: both;
+		margin:auto;
+		width: 75%;
+	}
+	li{
+		float: left;
+		padding: 0px 10px;
+		text-align: center;
+	}
+	.page_com{
+		.border(1px,#DDD);
+		border-left: none;
+		color:#08c;
+		cursor:pointer;
+		&:hover{color:#1562B7;}
+	}
+	.page{width:45px;}
+
+	.btn_page{width:55px;}
+
+	.btn_page:nth-child(1){.border(left,1px,#ddd);}
+
+	.choice_page{
+		height:30px;
+		.font(14px,#555,30px);
+		.border(1px,#DDD);
+		outline: none;
+	}
+
+	.jump{
+		.font(14px,#555,30px,center);
+		.border(1px,#DDD);
+		outline: none;
+	}
+
+	.jump_page{width:60px;}
+	.btn_jump{
+		padding:0px 10px;
+		background-color: #dedede;
+		color:#888;
+		border-left: none;
+		&:hover{background-color: #cecece;}
+	}
+	.disabled{color:#555;&:hover{color:#555}}
+}
+
+.account_info{
+	display: none;
+
+	label{
+		display: inline-block;
+		width: 100px;
+	}
+
+	.remark{
+		display: inline-block;
+		width: 220px;
+		word-break: break-all;
+		word-wrap: break-word;
+		position: relative;
+	}
+}
+
+/*搜索框*/
+.search_box{
+	.border(1px,#159BFA);
+	overflow: hidden;
+	margin-bottom: 10px;
+	.search_box_title{
+		.font(16px,#fff);
+		background-color: #1FAFF5;
+		text-indent: 20px;
+	}
+
+	.search_info{
+		li{
+			.font(14px,#555,55px);
+			float: left;
+			margin-left: 20px;
+		}
+
+		input{
+			height:32px;
+			.border(1px,#DDDDDD);
+			padding-left: 10px;
+		}
+
+		select{
+			height:32px;
+			.border(1px,#DDDDDD);
+		}
+	}
+}
+
+/*账目类型*/
+.account_type{
+	display: none;
+	label{
+		display: inline-block;
+		width: 100px;
+	}
+
+	li{height:45px;}
+
+
+
+	input[type="text"]{
+		height:30px;
+		.font(14px,#555,30px);
+	}
+
+	input[type="button"]{
+		border:none;
+	}
+}
+
+/*添加账目*/
+.add_account{
+	td{height:45px;}
+	input[type="text"]{height:25px;width: 250px;}
+	select{height:25px;}
+	textarea{height:80px;width:250px;}
+	label.error{color:red;padding-left: 10px;}
+}
+
+/*自定义角色标签*/
+.role_label{
+	display: none;
+	overflow: auto;
+	width:400px;
+	height:364px;
+}
+
+/*角色权限*/
+.role_auth{
+	margin: 10px 20px 40px 20px;
+	box-sizing: border-box;
+}
+/*角色权限按钮组*/
+.role_auth_btns{
+	position: absolute;
+	bottom:0px;
+	background:linear-gradient(#E6E6E6,#C1C1C1);
+	width: 400px;
+	.border(top,1px,#D5D5D5);
+	height:40px;
+	span{
+		float: right;
+		padding:0px 10px;
+		margin-top: 5px;
+		margin-right: 10px;
+		line-height: 30px;
+	}
+}
+
+/*添加修改角色*/
+.add_update_role{
+	label{
+		display: inline-block;
+		width:100px;
+		margin-left: 30px;
+	}
+
+	ul{
+		margin-top:20px;
+	}
+
+	li{
+		line-height: 50px;
+	}
+
+	input[type="text"]{
+		height:30px;
+		.font(14px,#555,30px);
+	}
+}

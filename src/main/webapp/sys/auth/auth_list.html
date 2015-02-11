@@ -1,0 +1,32 @@
+<div data-ng-controller="authController">
+	<p class="navigation_bar">当前位置：权限列表</p>
+	<table class="base_table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th width="5%">编号</th>
+				<th width="13%">权限名称</th>
+				<th width="25%">URL</th>
+				<th width="13%">上级权限</th>
+				<th width="15%">创建时间</th>
+				<th width="15%">操作</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="auth in showRecords">
+				<td>{{auth.authId}}</td>
+				<td>{{auth.authName}}</td>
+				<td>{{auth.url}}</td>
+				<td>{{auth.parentAuth.authName}}</td>
+				<td>{{auth.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>
+					<span class="btn_update" data-ng-click="updateAuthPage(auth)">修改</span>
+					<span class="btn_delete" data-ng-click="deleteAuth(auth.authId)">删除</span>
+					<span class="btn_look" data-ng-click="addAuthPage(auth)" data-ng-show="auth.level!=3">添加权限</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div pagination show-records="showRecords" datamodel="datamodel" getpagedatas="getPageDatas()" page="page"></div>
+	<div add-authority class="role_label" id="addAuth" getpagedatas="getPageDatas()" parent-auth="parentAuth"></div>
+	<div update-authority class="role_label" id="updateAuth" getpagedatas="getPageDatas()" auth-info="authInfo"></div>
+</div>

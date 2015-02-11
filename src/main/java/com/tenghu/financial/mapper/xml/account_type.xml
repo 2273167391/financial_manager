@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.AccountTypeMapper">
+	<!-- 结果映射 -->
+	<resultMap type="accountType" id="AccountType">
+		 <id property="atId" column="at_id"/>
+		 <result property="typeName" column="type_name"/>
+		 <result property="createTime" column="create_time"/>
+		 <collection property="accountList" ofType="account" column="at_id" select="com.tenghu.financial.mapper.AccountMapper.queryAccountByTypeId"/>
+	</resultMap>
+	
+	<!-- 除开主键id字段 -->
+	<sql id="account_type_basic_clm">
+		type_name,create_time
+	</sql>
+	
+	<!-- 所有字段 -->
+	<sql id="account_type_all_clm">
+		at_id,<include refid="account_type_basic_clm"/>
+	</sql>
+	
+	<!-- 表名 -->
+	<sql id="tab_account_type">tab_account_type</sql>
+	
+	<!-- 查询sql -->
+	<sql id="account_type_sql">
+		select <include refid="account_type_all_clm"/> from <include refid="tab_account_type"/>
+	</sql>
+	
+	<!-- 根据类型id查询 -->
+	<select id="queryAccountTypeById" parameterType="int" resultMap="AccountType">
+		<include refid="account_type_sql"/>
+		<where>at_id=#{at_id}</where>
+	</select>
+	
+	<!-- 添加类型 -->
+	<insert id="addAccountType" parameterType="accountType" useGeneratedKeys="true" keyProperty="at_id">
+		insert into <include refid="tab_account_type"/>(<include refid="account_type_basic_clm"/>)
+		values(#{typeName},#{createTime})
+	</insert>
+	
+	<!-- 根据类型名称查询类型 -->
+	<select id="queryAccountTypeByName" parameterType="string" resultMap="AccountType">
+		<include refid="account_type_sql"/>
+		<where>type_name=#{typeName}</where>
+	</select>
+	
+	<!-- 修改账目类型 -->
+	<update id="updateAccountTypeById" parameterType="accountType">
+		update <include refid="tab_account_type"/>
+		<set>type_name=#{typeName}</set>
+		<where>at_id=#{atId}</where>
+	</update>
+	
+	<!-- 删除账目类型 -->
+	<delete id="deleteAccountTypeById" parameterType="int">
+		delete from <include refid="tab_account_type"/>
+		<where>at_id=#{atId}</where>
+	</delete>
+	
+	<!-- 分页查询账目类型 -->
+	<select id="queryPageAccountType" parameterType="pageBean" resultMap="AccountType">
+		<include refid="account_type_sql"/>
+		ORDER BY create_time DESC 
+		limit #{startNum},#{pageSize}
+	</select>
+	<!-- 获取账目类型总记录数 -->
+	<select id="queryAccountTypeNum" resultType="int">
+		select count(at_id) from <include refid="tab_account_type"/>
+	</select>
+	
+	<!-- 获取所有账目类型 -->
+	<select id="queryAccountTypeList" resultMap="AccountType">
+		<include refid="account_type_sql"/>
+	</select>
+</mapper>

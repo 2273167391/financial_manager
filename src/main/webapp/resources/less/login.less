@@ -1,0 +1,137 @@
+@charset "utf-8";
+@import "lib/tools.less";
+*{margin:0px;padding:0px;}
+//调用动画
+.rolling_around_animation(animation-cloud);
+
+html{
+	height:100%;
+}
+
+body{
+	height:auto;
+	width:100%;
+	background:#049ec4 url("../images/cloud.png") repeat-x 0 bottom;
+	.animation(animation-cloud);//动画定义
+}
+
+/*start login_container*/
+#login_container{
+	width:320px;
+	background:#fff;
+	.border-shadow();
+	.border-radius();
+	position: absolute;
+	/*start title*/
+	p.title{
+		background:#19B4EA;
+		.border-radius(9px,9px,0px,0px);
+		padding-left:15px;
+		.box-sizing();
+		.font(25px,#fff,50px);
+	}
+
+	/*start login_box*/
+	.login_box{
+		padding:30px 40px;
+	}
+
+	/*start login_box_form*/
+	.login_box_form{
+		.border-radius(8px,8px,8px,8px);
+		.border(2px,#ccc);
+		.common(){
+			padding-left:40px;
+			line-height: 40px;
+			background-repeat: no-repeat;
+			background-position: 5px center;
+			position: relative;
+			.triangle_prompt_box{
+				.solid_triangle_prompt_box(left);
+				display: none;
+			}
+			
+		}
+
+		input{
+			height: 40px;
+			border:none;
+			width: 90%;
+			padding-left: 5px;
+			padding-right: 10px;
+			.box-sizing();
+			outline: none;
+			.font(14px,#555,20px);
+		}
+		
+		.login_username{
+			.common();
+			background-image: url("../images/user.png");
+			border-bottom: 1px solid #ccc;
+			
+		}
+
+		.login_pwd{
+			.common();
+			background-image: url("../images/pwd.png");
+			border-bottom: 1px solid #ccc;
+		}
+		
+		.login_code{
+			.common();
+			background-image: url("../images/code.png");
+			input{
+				width:100px;
+			}
+			img{
+				display: block;
+				margin-top:2px;
+				border:none;
+				float: right;
+				margin-right: 8px
+			}
+		}
+	}
+
+	/*start login_submit*/
+	.login_submit{
+		margin-top:20px;
+		.font(14px,#6F6F6F,18px);
+		span{
+			display: inline-block;
+		}
+		span:nth-child(1){
+			width:40%;
+		}
+
+		span:nth-child(2){
+			width:55%;
+		}
+
+		input[type="submit"]{
+			height:40px;
+			width:100%;
+			background:#3F464E url("../images/login.png") no-repeat 18px center;
+			.font(20px,#fff,40px,left,bold);
+			.border-radius(5px,5px,5px,5px);
+			border:none;
+			letter-spacing: 15px;
+			padding-left: 55px;
+			cursor: pointer;
+			outline: none;
+			&:hover{
+				background-color: #525A5F
+			}
+		}
+
+
+	}
+
+	/*start login_footer*/
+	.login_footer{
+		.font(14px,#6F6F6F,35px,center);
+		padding-bottom: 20px
+	}
+}
+/*自定义checkbox样式*/
+.input_checkbox_style();

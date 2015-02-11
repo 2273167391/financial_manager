@@ -1,0 +1,22 @@
+<div class="user_info_container" data-ng-controller="userInfoController">
+	<p class="navigation_bar" data-ng-show="isLookSelfInfo()">当前位置：<a href="#/user/user_list.html">用户列表</a>/个人信息</p>
+	<p class="navigation_bar" data-ng-show="isLookSelfInfo()==false">当前位置：个人信息</p>
+	<div class="user_info_content">
+		<div class="user_head">
+			<img data-ng-show="null==user.headImg||''==user.headImg" src="resources/user/head_img/default_head.png" alt="用户头像" title="用户头像" width="128" height="128">
+			<img data-ng-show="null!=user.headImg&&''!=user.headImg" data-ng-src="resources/user/head_img/{{user.headImg}}" alt="用户头像" title="用户头像" width="128" height="128">
+		</div>
+		<ul class="uesr_info">
+			<li><label>用户名：</label>{{user.userName}}</li>
+			<li><label>真实姓名：</label>{{user.trueName}}</li>
+			<li><label>性别：</label><span data-ng-bind="user.sex==1?'男':'女'"></span></li>
+			<li><label>角色：</label>{{user.role.roleName}}</li>
+			<li><label>联系电话：</label>{{user.phone}}</li>
+			<li><label>电子邮箱：</label>{{user.email}}</li>
+			<li><label>地址：</label><span data-ng-if="null!=user.province&&user.province!=''" data-ng-bind-template="{{user.province}}-{{user.city}}-{{user.region}}"></span></li>
+			<li><label>详细地址：</label>{{user.address}}</li>
+			<li><label>出生日期：</label>{{user.birthday}}</li>
+			<li><label>上次登录时间：</label>{{user.loginTime|date:'y-MM-dd HH:mm:ss'}}</li>
+		</ul>
+	</div>
+</div>

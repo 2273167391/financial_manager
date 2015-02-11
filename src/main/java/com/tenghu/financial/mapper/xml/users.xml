@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.UsersMapper">
+	<!-- 配置结果映射 -->
+	<resultMap type="users" id="Users">
+		 <id property="uId" column="u_id"/>
+		 <result property="userName" column="user_name"/>
+		 <result property="password" column="password"/>
+		 <result property="salt" column="salt"/>
+		 <result property="trueName" column="true_name"/>
+		 <result property="sex" column="sex"/>
+		 <result property="birthday" column="birthday"/>
+		 <result property="province" column="province"/>
+		 <result property="city" column="city"/>
+		 <result property="region" column="region"/>
+		 <result property="address" column="address"/>
+		 <result property="headImg" column="head_img"/>
+		 <result property="phone" column="phone"/>
+		 <result property="email" column="email"/>
+		 <result property="createTime" column="create_time"/>
+		 <result property="loginTime" column="login_time"/>
+		 <result property="ip" column="ip"/>
+		 <association property="role" javaType="role" select="com.tenghu.financial.mapper.RoleMapper.queryRoleById" column="r_id"/>
+		 <collection property="accountList" ofType="account" select="com.tenghu.financial.mapper.AccountMapper.queryAccountByUsersId" column="u_id"/>
+	</resultMap>
+	
+	<!-- 用户表中除开id的所有字段 -->
+	<sql id="users_basic_clm">
+		user_name,password,salt,true_name,r_id,sex,birthday,province,city,region,address,head_img,phone,email,create_time,login_time,ip
+	</sql>
+	
+	<!-- 用户表中所有字段 -->
+	<sql id="users_all_clm">
+		u_id,
+		<include refid="users_basic_clm"/>
+	</sql>
+	
+	<!-- 表名 -->
+	<sql id="tab_users">tab_users</sql>
+	
+	<!-- 查询sql -->
+	<sql id="users_select_sql">
+		select <include refid="users_all_clm"/> from <include refid="tab_users"/>
+	</sql>
+	
+	<!-- 添加用户 -->
+	<insert id="addUsers" parameterType="users" useGeneratedKeys="true" keyProperty="u_id">
+		insert into <include refid="tab_users"/>(
+			<include refid="users_basic_clm"/>
+		) values(
+			#{userName},#{password},#{salt},#{trueName},#{role.rId},#{sex},#{birthday},#{province},#{city},#{region},#{address},#{headImg},#{phone},#{email},#{createTime},#{loginTime},#{ip}
+		)
+	</insert>
+	
+	<!-- 根据用户查询用户个数 -->
+	<select id="queryUsersByUsernameNum" parameterType="string" resultMap="Users">
+		<include refid="users_select_sql"/>
+		<where>
+			user_name=#{userName}
+		</where>
+	</select>
+	
+	<!-- 根据用户id查询用户 -->
+	<select id="queryUsersById" parameterType="string" resultMap="Users">
+		<include refid="users_select_sql"/>
+		<where>u_id=#{id}</where>
+	</select>
+	
+	<!-- 根据角色id查询用户 -->
+	<select id="queryUsersByRoleId" parameterType="int" resultMap="Users">
+		<include refid="users_select_sql"/>
+		<where>r_id=#{r_id}</where>
+	</select>
+	
+	<!-- 修改用户 -->
+	<update id="updateUsers" parameterType="users">
+		update <include refid="tab_users"/>
+		<set>
+			<if test="null!=userName or ''!=userName">user_name=#{userName}</if>
+			<if test="null!=password or ''!=password">,password=#{password},salt=#{salt}</if>
+			<if test="null!=trueName or ''!=trueName">,true_name=#{trueName}</if>
+			<if test="null!=birthday or ''!=birthday">,birthday=#{birthday}</if>
+			<if test="null!=province or ''!=province">,province=#{province}</if>
+			<if test="null!=city or ''!=city">,city=#{city}</if>
+			<if test="null!=region or ''!=region">,region=#{region}</if>
+			<if test="null!=address or ''!=address">,address=#{address}</if>
+			<if test="null!=headImg or ''!=headImg">,head_img=#{headImg}</if>
+			<if test="null!=phone or ''!=phone">,phone=#{phone}</if>
+			<if test="null!=email or ''!=email">,email=#{email}</if>
+			<if test="null!=loginTime">,login_time=#{loginTime}</if>
+			<if test="null!=ip or ''!=ip">,ip=#{ip}</if>
+		</set>
+		<where>
+			u_id=#{uId}
+		</where>
+	</update>
+	
+	<!-- 分页查询用户 -->
+	<select id="queryUserPage" resultMap="Users" parameterType="pageBean">
+		<include refid="users_select_sql"/>
+		order by create_time desc 
+		limit #{startNum},#{pageSize}
+	</select>
+	
+	<!-- 查询用户人数 -->
+	<select id="queryUserNum" resultType="int">
+		select count(u_id) from <include refid="tab_users"/>
+	</select>
+</mapper>

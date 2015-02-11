@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>financial_manager</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:applicationContext.xml</param-value>
+	</context-param>
+	<servlet>
+		<servlet-name>CodeServlet</servlet-name>
+		<servlet-class>com.tenghu.financial.servlet.CodeServlet</servlet-class>
+		<init-param>
+			<param-name>width</param-name>
+			<param-value>120</param-value>
+		</init-param>
+		<init-param>
+			<param-name>height</param-name>
+			<param-value>40</param-value>
+		</init-param>
+		<init-param>
+			<param-name>num</param-name>
+			<param-value>4</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CodeServlet</servlet-name>
+		<url-pattern>/index/codeServlet</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:springmvc-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>DispatcherFilter</filter-name>
+		<filter-class>com.tenghu.financial.filter.DispatcherFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>DispatcherFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

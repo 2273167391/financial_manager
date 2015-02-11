@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html data-ng-app="com.tenghu.fiancial.main.app">
+<head>
+<meta charset="utf-8"/>
+<meta name="keywords" content="个人财务管理"/>
+<meta name="description" content="个人财务管理是对个人的日常的开支进行管理，方便于每个月对财务的统计"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人财务管理</title>
+<link rel="stylesheet" href="resources/css/main.css"/>
+<link rel="stylesheet" href="resources/js/ztree/css/zTreeStyle/zTreeStyle.css"/>
+<link rel="shortcut icon" href="resources/images/ico/favicon.ico" mce_href="resources/images/ico/favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+	<div id="main_container" data-ng-controller="mainController">
+		<div class="main_header">
+			<div class="logo"><img src="resources/images/logo.png" width="450" height="100%" alt="个人财务管理系统" title="个人财务管理系统"/></div>
+			<ul class="header_info">
+				<li>
+					欢迎回来：<span class="head_user" data-ng-bind="user.userName"></span>
+					当前时间：<span class="head_time" id="currentTime"></span>
+					上次登录时间：<span class="head_time" data-ng-bind="user.loginTime|date:'y-MM-dd HH:mm:ss'"></span>
+				</li>
+				<li>
+					<span class="btn_com self_info" data-ng-click="getContent('/user/self/user_info.html')">个人信息</span>
+					<span class="btn_com sign_out" data-ng-click="signOut()">退出</span>
+				</li>
+			</ul>
+		</div>
+		<div class="main_content">
+			<div class="content_menu">
+				<div class="content_menu_item" data-ng-repeat="menu in menus">
+					<div class="menu_item_title">{{menu.name}}</div>
+					<ul class="menu_list" data-ng-class="{'active':$first}">
+						<li data-ng-repeat="childMenu in menu.children" data-ng-click="getContent(childMenu.url)">{{childMenu.name}}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content" data-ng-view></div>
+		</div>
+		<div class="main_footer">腾虎科技，版权所有</div>
+	</div>
+	<script type="text/javascript"  src="resources/js/jquery/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="resources/js/layer/layer.min.js"></script>
+	<script type="text/javascript" src="resources/js/laydate/laydate.js"></script>
+	<script type="text/javascript"  src="resources/js/angularjs/angular.min.js"></script>
+	<script type="text/javascript"  src="resources/js/angularjs/angular-route.min.js"></script>
+	<script type="text/javascript"  src="resources/js/app.js"></script>
+	<script type="text/javascript"  src="resources/js/route/main_route.js"></script>
+	<script type="text/javascript"  src="resources/js/service/main_service.js"></script>
+	<script type="text/javascript"  src="resources/js/service/user_service.js"></script>
+	<script type="text/javascript"  src="resources/js/service/account_service.js"></script>
+	<script type="text/javascript"  src="resources/js/controller/main_controller.js"></script>
+	<script type="text/javascript"  src="resources/js/controller/user_controller.js"></script>
+	<script type="text/javascript"  src="resources/js/controller/account_controller.js"></script>
+	<script type="text/javascript"  src="resources/js/plugin/main_plugin.js"></script>
+	<script type="text/javascript"  src="resources/js/label/custom_label.js"></script>
+	<script type="text/javascript"  src="commons/js/paginations.js"></script>
+	<script type="text/javascript" src="resources/js/jquery/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/form.validate.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/custom_validation.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/custom_dialog_box.js"></script>
+	
+	<script type="text/javascript" src="resources/js/fusioncharts/fusioncharts.js"></script>
+	<script type="text/javascript" src="resources/js/fusioncharts/themes/fusioncharts.theme.zune.js"></script>
+	
+	<script type="text/javascript" src="resources/js/controller/statistics_controller.js"></script>
+	<script type="text/javascript" src="resources/js/service/statistics_service.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/statistics_chart.js"></script>
+	
+	<script type="text/javascript" src="resources/js/controller/sys_controller.js"></script>
+	<script type="text/javascript" src="resources/js/service/sys_service.js"></script>
+	<!-- ztree -->
+	<script type="text/javascript" src="resources/js/ztree/js/jquery.ztree.all-3.5.min.js"></script>
+	
+	<!-- Reuqst Service -->
+	<script type="text/javascript" src="resources/js/service/request_service.js"></script>
+	
+</body>
+</html>

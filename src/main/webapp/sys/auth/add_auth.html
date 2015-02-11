@@ -1,0 +1,22 @@
+<div class="add_update_role">
+	<ul>
+		<li>
+			<label>权限名称：</label>
+			<input type="text" data-ng-model="authority.authName"/>
+		</li>
+		<li>
+			<label>上级权限：</label>
+			<input type="text" value="{{parentAuth.authName}}" readonly="readonly"/>
+		</li>
+		<li>
+			<label>URL：</label>
+			<input type="text" data-ng-model="authority.url" style="width:230px"/>
+		</li>
+		<li>
+			<label>&nbsp;</label>
+			<input type="button" class="btn_look" value="提交" data-ng-click="addAuth(authority)"/>
+			<input type="button" class="btn" value="关闭" data-ng-click="close()"/>
+		</li>
+	</ul>
+	
+</div>

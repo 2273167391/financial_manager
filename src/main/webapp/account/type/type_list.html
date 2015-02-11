@@ -1,0 +1,30 @@
+<div data-ng-controller="typeController">
+	<p class="navigation_bar">
+		当前位置：类型管理
+	</p>
+	<span class="btn_look" data-ng-click="addAccountTypeBox()">添加账目类型</span>
+	<table class="base_table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th width="30%">类型名称</th>
+				<th width="20%">创建时间</th>
+				<th width="20%">操作</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="accountType in showRecords">
+				<td>{{accountType.atId}}</td>
+				<td>{{accountType.typeName}}</td>
+				<td>{{accountType.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>
+					<span class="btn_update" data-ng-click="updateAccountTypeBox(accountType.atId)">修改</span>
+					<span class="btn_delete" data-ng-click="deleteAccountType(accountType.atId)">删除</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div pagination show-records="showRecords" datamodel="datamodel" getpagedatas="getPageDatas()" page="page"></div>
+	<div class="account_type" id="updateT" update_account_type  account-type="accountType" getpagedatas="getPageDatas()" page-index="pageIndex"></div>
+	<div class="account_type" id="addT" add-account-type ></div>
+</div>

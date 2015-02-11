@@ -1,0 +1,20 @@
+<div class="add_update_role">
+	<ul>
+		<li>
+			<label>角色名称：</label>
+			<input type="text" data-ng-model="roleInfo.roleName"/>
+		</li>
+		<li>
+			<label>权限IDS:</label>
+			
+			<input type="text" readonly="readonly" data-ng-model="roleInfo.authIds" id="authIds"/>
+			<input type="button" class="btn_success" value="权限" data-ng-click="authority(roleInfo.authIds)"/>
+		</li>
+		<li>
+			<label>&nbsp;</label>
+			<input type="button" class="btn_look" value="提交" data-ng-click="addRole(roleInfo)"/>
+			<input type="button" class="btn" value="关闭" data-ng-click="close()"/>
+		</li>
+	</ul>
+	
+</div>

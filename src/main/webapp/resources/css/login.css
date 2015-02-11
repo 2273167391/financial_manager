@@ -1,0 +1,409 @@
+@charset "utf-8";
+/*
+	左右滚动动画
+	@animation_name:动画名称
+	@distance:滚动距离
+*/
+/*
+	@animation_name:动画名称
+	@duration:多长时间内完成动画
+	@timing-function:动画如果完成一个周期
+	@iteration-count:动画播放次数
+*/
+/*与边框相关*/
+/*字体*/
+/*绝对定位上下居中*/
+/*自定义复选框样式*/
+/*实心三角提示框*/
+/*左提示框*/
+/*表格样式*/
+/*按钮*/
+* {
+  margin: 0px;
+  padding: 0px;
+}
+@keyframes animation-cloud {
+  to {
+    background-position: 0 100%;
+  }
+  from {
+    background-position: 600px 100%;
+  }
+}
+@-webkit-keyframes animation-cloud {
+  to {
+    background-position: 0 100%;
+  }
+  from {
+    background-position: 600px 100%;
+  }
+}
+@-moz-keyframes animation-cloud {
+  to {
+    background-position: 0 100%;
+  }
+  from {
+    background-position: 600px 100%;
+  }
+}
+@-ms-keyframes animation-cloud {
+  to {
+    background-position: 0 100%;
+  }
+  from {
+    background-position: 600px 100%;
+  }
+}
+@-o-keyframes animation-cloud {
+  to {
+    background-position: 0 100%;
+  }
+  from {
+    background-position: 600px 100%;
+  }
+}
+html {
+  height: 100%;
+}
+body {
+  height: auto;
+  width: 100%;
+  background: #049ec4 url("../images/cloud.png") repeat-x 0 bottom;
+  animation: animation-cloud 20s linear infinite;
+  -webkit-animation: animation-cloud 20s linear infinite;
+  -moz-animation: animation-cloud 20s linear infinite;
+  -ms-animation: animation-cloud 20s linear infinite;
+  -o-animation: animation-cloud 20s linear infinite;
+}
+/*start login_container*/
+#login_container {
+  width: 320px;
+  background: #fff;
+  box-shadow: 2px 2px 10px #555555;
+  -webkit-box-shadow: 2px 2px 10px #555555;
+  -moz-box-shadow: 2px 2px 10px #555555;
+  -o-box-shadow: 2px 2px 10px #555555;
+  border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px;
+  position: absolute;
+  /*start title*/
+  /*start login_box*/
+  /*start login_box_form*/
+  /*start login_submit*/
+  /*start login_footer*/
+}
+#login_container p.title {
+  background: #19B4EA;
+  border-radius: 9px 9px 0px 0px;
+  -webkit-border-radius: 9px 9px 0px 0px;
+  -moz-border-radius: 9px 9px 0px 0px;
+  -o-border-radius: 9px 9px 0px 0px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 25px;
+  color: #ffffff;
+  line-height: 50px;
+  text-align: left;
+}
+#login_container .login_box {
+  padding: 30px 40px;
+}
+#login_container .login_box_form {
+  border-radius: 8px 8px 8px 8px;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  -o-border-radius: 8px 8px 8px 8px;
+  border: 2px solid #cccccc;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+#login_container .login_box_form input {
+  height: 40px;
+  border: none;
+  width: 90%;
+  padding-left: 5px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  outline: none;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 20px;
+  text-align: left;
+}
+#login_container .login_box_form .login_username {
+  padding-left: 40px;
+  line-height: 40px;
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  position: relative;
+  background-image: url("../images/user.png");
+  border-bottom: 1px solid #ccc;
+}
+#login_container .login_box_form .login_username .triangle_prompt_box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 100%;
+  min-width: 110px;
+  background: #eb4f38;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 25px;
+  text-align: left;
+  height: 25px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -o-border-radius: 5px 5px 5px 5px;
+  display: none;
+}
+#login_container .login_box_form .login_username .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_username .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_pwd {
+  padding-left: 40px;
+  line-height: 40px;
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  position: relative;
+  background-image: url("../images/pwd.png");
+  border-bottom: 1px solid #ccc;
+}
+#login_container .login_box_form .login_pwd .triangle_prompt_box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 100%;
+  min-width: 110px;
+  background: #eb4f38;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 25px;
+  text-align: left;
+  height: 25px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -o-border-radius: 5px 5px 5px 5px;
+  display: none;
+}
+#login_container .login_box_form .login_pwd .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_pwd .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_code {
+  padding-left: 40px;
+  line-height: 40px;
+  background-repeat: no-repeat;
+  background-position: 5px center;
+  position: relative;
+  background-image: url("../images/code.png");
+}
+#login_container .login_box_form .login_code .triangle_prompt_box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 100%;
+  min-width: 110px;
+  background: #eb4f38;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 25px;
+  text-align: left;
+  height: 25px;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -o-border-radius: 5px 5px 5px 5px;
+  display: none;
+}
+#login_container .login_box_form .login_code .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_code .triangle_prompt_box:before {
+  content: "";
+  height: 0px;
+  width: 0px;
+  border-width: 7px;
+  border-color: transparent #eb4f38 transparent transparent;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: -13px;
+}
+#login_container .login_box_form .login_code input {
+  width: 100px;
+}
+#login_container .login_box_form .login_code img {
+  display: block;
+  margin-top: 2px;
+  border: none;
+  float: right;
+  margin-right: 8px;
+}
+#login_container .login_submit {
+  margin-top: 20px;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #6f6f6f;
+  line-height: 18px;
+  text-align: left;
+}
+#login_container .login_submit span {
+  display: inline-block;
+}
+#login_container .login_submit span:nth-child(1) {
+  width: 40%;
+}
+#login_container .login_submit span:nth-child(2) {
+  width: 55%;
+}
+#login_container .login_submit input[type="submit"] {
+  height: 40px;
+  width: 100%;
+  background: #3f464e url("../images/login.png") no-repeat 18px center;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff;
+  line-height: 40px;
+  text-align: left;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -o-border-radius: 5px 5px 5px 5px;
+  border: none;
+  letter-spacing: 15px;
+  padding-left: 55px;
+  cursor: pointer;
+  outline: none;
+}
+#login_container .login_submit input[type="submit"]:hover {
+  background-color: #525a5f;
+}
+#login_container .login_footer {
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #6f6f6f;
+  line-height: 35px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+/*自定义checkbox样式*/
+input[type="checkbox"] {
+  content: "";
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  border: none;
+  vertical-align: center;
+  background: url("../images/check_mark_false.png") no-repeat;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked {
+  background: url("../images/check_mark_true.png") no-repeat;
+}

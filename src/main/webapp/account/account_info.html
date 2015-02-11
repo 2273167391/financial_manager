@@ -1,0 +1,15 @@
+<div>
+	<ul style="padding:30px;">
+		<li><label>账目编号：</label>{{accountInfo.aId}}</li>
+		<li><label>账目名称：</label>{{accountInfo.accountName}}</li>
+		<li><label>用途：</label>{{accountInfo.accountType.typeName}}</li>
+		<li>
+			<label>类型：</label>
+			<span data-ng-if="accountInfo.status==1">收入</span>
+			<span data-ng-if="accountInfo.status==0">支出</span>
+		</li>
+		<li><label>金额/元：</label>{{accountInfo.money|number:2}}</li>
+		<li><label>创建时间：</label>{{accountInfo.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</li>
+		<li><label>备注：</label><span class="remark">{{accountInfo.remark}}</span></li>
+	</ul>
+</div>

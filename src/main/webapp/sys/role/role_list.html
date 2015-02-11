@@ -1,0 +1,35 @@
+<div data-ng-controller="roleController">
+	<p class="navigation_bar">当前位置：角色列表</p>
+	<span class="btn_look" data-ng-click="addRoleBox()">添加角色</span>
+	<table class="base_table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th width="30%">角色名称</th>
+				<th width="30%">创建时间</th>
+				<th width="20%">操作</th>
+			<tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="role in showRecords">
+				<td>{{role.rId}}</td>
+				<td>{{role.roleName}}</td>
+				<td>{{role.createTime|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>
+					<span class="btn_look" data-ng-click="seeAuth(role.rId,role.authIds)">查看权限</span>
+					<span class="btn_update" data-ng-click="getUpdateRolePage(role.rId)">修改</span>
+					<span class="btn_delete" data-ng-click="deleteRole(role.rId)">删除</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div pagination show-records="showRecords" datamodel="datamodel" getpagedatas="getPageDatas()" page="page"></div>
+	<!-- 角色权限标签 -->
+	<div role-auth id="roleAuth" class="role_label"></div>
+	<!-- 添加角色 -->
+	<div add-role id="addRole" class="role_label" role-info="roleInfo" getpagedatas="getPageDatas()"></div>
+	<!-- 修改角色 -->
+	<div update-role id="updateRole" class="role_label" getpagedatas="getPageDatas()" role-info="roleInfo"></div>
+	<!-- 权限标签 -->
+	<div authority id="authorityAll" class="role_label "></div>
+</div>

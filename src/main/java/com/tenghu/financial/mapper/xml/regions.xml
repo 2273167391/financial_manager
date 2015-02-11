@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.RegionsMapper">
+	<resultMap type="regions" id="Regions">
+		<id property="reId" column="re_id"/>
+		<result property="code" column="code"/>
+		<result property="name" column="name"/>
+		<result property="pCode" column="p_code"/>
+		<result property="level" column="level"/>
+	</resultMap>
+	
+	<sql id="region_basic_clm">
+		code,name,p_code,level
+	</sql>
+	
+	<sql id="region_all_clm">
+		re_id,<include refid="region_basic_clm"/>
+	</sql>
+	
+	<sql id="tab_regions">tab_regions</sql>
+	
+	<!-- 获取所有地址 -->
+	<select id="queryRegionsList" resultMap="Regions">
+		select <include refid="region_all_clm"/> from <include refid="tab_regions"/>
+	</select>
+</mapper>

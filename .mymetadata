@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="financial_manager"
+  id="myeclipse.1421136567635"
+  context-root="/financial_manager"
+  j2ee-spec="6.0"
+  archive="financial_manager.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

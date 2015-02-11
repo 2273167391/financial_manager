@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        <!-- SpringMvc注解驱动 -->
+        <mvc:annotation-driven>
+        	<!-- 配置消息转换器 -->
+        	<mvc:message-converters register-defaults="true">
+        		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+        			<property name="supportedMediaTypes">
+        				<list>
+        					<value>application/json;charset=UTF-8</value>
+        					<value>text/html;charset=UTF-8</value>
+        				</list>
+        			</property>
+        		</bean>
+        		
+        		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        			<property name="supportedMediaTypes">
+        				<list>
+        					<value>application/json;charset=UTF-8</value>
+        					<value>text/html;charset=UTF-8</value>
+        				</list>
+        			</property>
+        		</bean>
+        	</mvc:message-converters>
+        </mvc:annotation-driven>
+        <context:annotation-config/>
+        <context:component-scan base-package="com.tenghu.financial.controller"/>
+        <!-- 配置静态资源 -->
+        <mvc:resources location="/resources/" mapping="/resources/**"/>
+        <mvc:resources location="/commons/" mapping="/commons/**"/>
+        <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        	<property name="templateLoaderPath" value="/"/>
+        	<property name="defaultEncoding" value="utf-8"/>
+        	<property name="freemarkerSettings">
+        		<props>
+        			<prop key="template_update_delay">10</prop>
+        			<prop key="locale">zh_CN</prop>
+        			<prop key="datetime_format">yyyy-MM-dd</prop>
+        			<prop key="date_format">yyyy-MM-dd</prop>
+        			<prop key="number_format">#.##</prop>
+        		</props>
+        	</property>
+        </bean>
+        
+        <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        	<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+        	<property name="suffix" value=".html"/>
+        	<property name="contentType" value="text/html;charset=utf-8"/>
+        	<property name="exposeRequestAttributes" value="true"/>
+        	<property name="exposeSessionAttributes" value="true"/>
+        	<property name="exposeSpringMacroHelpers" value="true"/>
+        </bean>
+</beans>

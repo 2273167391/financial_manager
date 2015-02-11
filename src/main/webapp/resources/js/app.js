@@ -1,0 +1,13 @@
+var mainApp=angular.module('com.tenghu.fiancial.main.app',
+		['ngRoute',
+		 'com.tenghu.fiancial.user.app',
+		 'com.tenghu.fiancial.main.service',
+		 'com.tenghu.fiancial.user.service',
+		 'com.tenghu.fiancial.account.app',
+		 'com.tenghu.fiancial.account.service',
+		 'com.tenghu.fiancial.paginations',
+		 'com.tenghu.fiancial.custom_label',
+		 'com.tenghu.fiancial.statistics.app',
+		 'com.tenghu.fiancial.statistics.service',
+		 'com.tenghu.fiancial.sys.app',
+		 'com.tenghu.fiancial.sys.service']);

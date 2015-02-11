@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.AccountMapper">
+	<!-- 结果映射 -->
+	<resultMap type="account" id="Account">
+		 <id property="aId" column="a_id"/>
+		 <result property="accountName" column="account_name"/>
+		 <result property="status" column="status"/>
+		 <result property="money" column="money"/>
+		 <result property="createTime" column="create_time" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+		 <result property="remark" column="remark"/>
+		 <association property="users" javaType="users" select="com.tenghu.financial.mapper.UsersMapper.queryUsersById" column="u_id"/>
+		 <association property="accountType" javaType="accountType" select="com.tenghu.financial.mapper.AccountTypeMapper.queryAccountTypeById" column="type_id"/>
+	</resultMap>
+	
+	<!-- 除开主键id的字段 -->
+	<sql id="account_basic_clm">
+		u_id,type_id,status,account_name,money,create_time,remark
+	</sql>
+	
+	<!-- 所有字段 -->
+	<sql id="account_all_clm">
+		a_id,<include refid="account_basic_clm"/>
+	</sql>
+	
+	<!-- 表名 -->
+	<sql id="tab_account">tab_account</sql>
+	
+	<!-- 查询sql -->
+	<sql id="account_select_sql">
+		select <include refid="account_all_clm"/> from <include refid="tab_account"/>
+	</sql>
+	
+	<!-- 根据用户id查询用户账目 -->
+	<select id="queryAccountByUsersId" parameterType="int" resultMap="Account">
+		<include refid="account_select_sql"/>
+		<where>u_id=#{id}</where>
+	</select>
+	
+	<!-- 根据账目类型id查询账目类型 -->
+	<select id="queryAccountByTypeId" parameterType="int" resultMap="Account">
+		<include refid="account_select_sql"/>
+		<where>type_id=#{type_id}</where>
+	</select>
+	
+	<!-- 添加账目 -->
+	<insert id="addAccount" parameterType="account">
+		insert into 
+			<include refid="tab_account"/>
+		(
+			<include refid="account_basic_clm"/>
+		) values (
+			#{users.uId},#{accountType.atId},#{status},#{accountName},#{money},#{createTime},#{remark}
+		)
+	</insert>
+	
+	<!-- 分页查询账目 -->
+	<select id="queryPageAccount" parameterType="pageBean" resultMap="Account">
+		<include refid="account_select_sql"/> 
+		<where>
+			<if test="paramters.startTime!=null and paramters.endTime!=null and paramters.startTime!='' and paramters.endTime!=''">
+				create_time between #{paramters.startTime} and #{paramters.endTime} and
+			</if>
+			<if test="paramters.minMoney!=null and paramters.maxMoney!=null and paramters.minMoney!='' and paramters.maxMoney!=''">
+				money between #{paramters.minMoney} and #{paramters.maxMoney} and
+			</if>
+			status=#{paramters.status} and 
+			u_id=#{paramters.user}
+		</where>
+		ORDER BY create_time DESC  limit #{startNum},#{pageSize}
+	</select>
+	
+	<!-- 查询账目状态总数 -->
+	<select id="queryAccountStatus" parameterType="Map" resultType="int">
+		select count(a_id) from 
+		<include refid="tab_account"/> 
+		<where>status=#{status} and u_id=#{user}</where>
+	</select>
+	
+	<!-- 根据账目id查询账目 -->
+	<select id="queryAccountById" parameterType="int" resultMap="Account">
+		<include refid="account_select_sql"/>
+		<where>a_id=#{id}</where>
+	</select>
+	
+	<!-- 根据类型id查询账目记录数 -->
+	<select id="queryAccountByTypeIdNum" parameterType="int" resultType="int">
+		select count(a_id) from 
+		<include refid="tab_account"/>
+		<where>type_id=#{id}</where>
+	</select>
+	
+	<!-- 删除账目 -->
+	<delete id="deleteAccount" parameterType="int">
+		delete from <include refid="tab_account"/>
+		<where>a_id=#{id}</where>
+	</delete>
+	
+	<!-- 年度统计查询 -->
+	<select id="queryYearStatistics" resultType="Map" parameterType="Map">
+		SELECT DATE_FORMAT(create_time,'%m') label,cast(SUM(money) as char) value  FROM 
+		<include refid="tab_account"/> 
+		<where>DATE_FORMAT(create_time,'%Y')=#{year} AND STATUS=#{status} AND U_ID=#{user} <if test="typeId!=0">and type_id=#{typeId}</if></where>
+		GROUP BY DATE_FORMAT(create_time,'%m') 
+	</select>
+	
+	<!-- 按月统计 -->
+	<select id="queryMonthStatistics" resultType="Map" parameterType="Map">
+		SELECT DATE_FORMAT(create_time,'%d') label,cast(SUM(money) as char) value FROM 
+		 <include refid="tab_account"/>
+		<where>DATE_FORMAT(create_time,'%Y-%m')=#{month} AND STATUS=#{status} AND U_ID=#{user} <if test="typeId!=0">and type_id=#{typeId}</if></where>
+		GROUP BY DATE_FORMAT(create_time,'%d')
+	</select>
+	
+	<!-- 分类统计 -->
+	<select id="queryTypeStatistics" resultType="Map" parameterType="Map">
+		SELECT tat.type_name label,SUM(money) value FROM tab_account ta,tab_account_type tat 
+		<where>ta.type_id=tat.at_id AND ta.status=#{status} AND 
+		DATE_FORMAT(ta.create_time,'%Y-%m')=#{month} AND U_ID=#{user}</where>
+  		GROUP BY ta.type_id
+	</select>
+</mapper>

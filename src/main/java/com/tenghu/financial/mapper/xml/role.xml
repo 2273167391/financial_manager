@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tenghu.financial.mapper.RoleMapper">
+	<!-- 配置结果映射 -->
+	<resultMap type="role" id="Role">
+		<id property="rId" column="r_id"/>
+		<result property="roleName" column="role_name"/>
+		<result property="authIds" column="auth_ids"/>
+		<result property="createTime" column="create_time"/>
+		<!-- 用户集合 -->
+		<collection property="usersList" ofType="users" select="com.tenghu.financial.mapper.UsersMapper.queryUsersByRoleId" column="r_id"/>
+	</resultMap>
+	
+	<!-- 除开角色id字段名 -->
+	<sql id="role_basic_clm">
+		role_name,auth_ids,create_time
+	</sql>
+	
+	<!-- 所有角色字段名 -->
+	<sql id="role_all_clm">
+		r_id,<include refid="role_basic_clm"/>
+	</sql>
+	
+	<!-- 角色查询sql -->
+	<sql id="role_query_sql">
+		select <include refid="role_all_clm"/> from <include refid="tab_role"/>
+	</sql>
+
+	<!-- 表名 -->
+	<sql id="tab_role">tab_role</sql>
+	
+	<!-- 根据角色id查询 -->
+	<select id="queryRoleById" resultMap="Role">
+		<include refid="role_query_sql"/>
+		<where>
+			r_id=#{id}
+		</where>
+	</select>
+	
+	<!-- 分页查询出所有的角色 -->
+	<select id="queryPageRole" resultMap="Role" parameterType="pageBean">
+		<include refid="role_query_sql"/>
+		order by create_time desc 
+		limit #{startNum},#{pageSize}
+	</select>
+	
+	<!-- 统计角色个数 -->
+	<select id="queryRoleNum" resultType="int">
+		select count(r_id) from 
+		<include refid="tab_role"/>
+	</select>
+	
+	<!-- 修改角色 -->
+	<update id="updateRoleById" parameterType="role">
+		update <include refid="tab_role"/>
+		<set>
+			<if test="roleName!='' and roleName!=null">
+				role_name=#{roleName}
+			</if>
+			<if test="authIds!='' and authIds!=null">
+				,auth_ids=#{authIds}
+			</if>
+		</set>
+		<where>r_id=#{rId}</where>
+	</update>
+	
+	<!-- 添加角色 -->
+	<insert id="addRole" parameterType="role">
+		insert into <include refid="tab_role"/>(<include refid="role_basic_clm"/>)
+		values(#{roleName},#{authIds},#{createTime})
+	</insert>
+	
+	<!-- 删除角色 -->
+	<delete id="deleteRole" parameterType="int">
+		delete from <include refid="tab_role"/> 
+		<where>r_id=#{id}</where>
+	</delete>
+	
+	<!-- 获取所有角色 -->
+	<select id="queryRoleList" resultMap="Role">
+		<include refid="role_query_sql"/>
+	</select>
+</mapper>
