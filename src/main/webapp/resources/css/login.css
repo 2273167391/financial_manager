@@ -113,7 +113,7 @@ body {
   text-align: left;
 }
 #login_container .login_box {
-  padding: 30px 40px;
+  padding: 30px 40px 0px 40px;
 }
 #login_container .login_box_form {
   border-radius: 8px 8px 8px 8px;
@@ -159,7 +159,7 @@ body {
   bottom: 0;
   margin: auto;
   left: 100%;
-  min-width: 110px;
+  min-width: 130px;
   background: #eb4f38;
   font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
   font-weight: normal;
@@ -220,7 +220,7 @@ body {
   bottom: 0;
   margin: auto;
   left: 100%;
-  min-width: 110px;
+  min-width: 130px;
   background: #eb4f38;
   font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
   font-weight: normal;
@@ -280,7 +280,7 @@ body {
   bottom: 0;
   margin: auto;
   left: 100%;
-  min-width: 110px;
+  min-width: 130px;
   background: #eb4f38;
   font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
   font-weight: normal;
@@ -406,4 +406,21 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:checked {
   background: url("../images/check_mark_true.png") no-repeat;
+}
+/*注册样式*/
+.register {
+  width: 100%;
+  font-family: "微软雅黑", "Book Antiqua", Palatino, serif;
+  font-weight: normal;
+  font-size: 14px;
+  color: #555555;
+  line-height: 45px;
+  text-align: right;
+}
+.register a {
+  text-decoration: none;
+  color: #0DADE5;
+}
+.register a:hover {
+  color: #17b7f0;
 }

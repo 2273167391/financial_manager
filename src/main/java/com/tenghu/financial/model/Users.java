@@ -30,7 +30,7 @@ public class Users implements Serializable{
 	private String salt;//密码盐
 	private String trueName;//真实姓名
 	private Role role;//角色
-	private int sex;//性别
+	private Integer sex;//性别
 	private String birthday;//出身日期
 	private String province;//省份
 	private String city;//城市
@@ -84,10 +84,10 @@ public class Users implements Serializable{
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	public int getSex() {
+	public Integer getSex() {
 		return sex;
 	}
-	public void setSex(int sex) {
+	public void setSex(Integer sex) {
 		this.sex = sex;
 	}
 	public String getBirthday() {

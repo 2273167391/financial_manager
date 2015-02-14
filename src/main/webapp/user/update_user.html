@@ -1,68 +1,81 @@
 <div data-ng-controller="updateUserController">
-	<p class="navigation_bar">当前位置：修改用户</p>
-	<form action="" method="POST" id="updateUserForm">
-		<table>
-			<tr>
-				<td width="20%">真实姓名：</td>
-				<td width="50%"><input type="text" value="{{user.trueName}}" name="trueName"/></td>
-				<td width="30%"></td>
-			</tr>
-			<tr>
-				<td>角色：</td>
-				<td><select name="rId" data-ng-model="rId" data-ng-options="role.rId as role.roleName for role in roles">
-					<option value="">--请选择--</option>
-				</select></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>性别：</td>
-				<td><select name="sex">
-					<option value="1" data-ng-selected="user.sex==1">男</option>
-					<option value="0" data-ng-selected="user.sex==0">女</option>
-				</select></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>电话号码：</td>
-				<td><input type="text" name="phone" value="{{user.phone}}"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>电子邮箱：</td>
-				<td><input type="text" name="email" value="{{user.email}}"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>地区：</td>
-				<td>
-					<select data-ng-model="province" name="province" data-ng-options="province.name as province.name for province in provinces">
+	<p class="navigation_bar">当前位置：<a href='#/user/user_list.html'>用户列表</a>/修改用户</p>
+	<div class="user_info_content">
+		<div class="user_head">
+			<img data-ng-show="null==user.headImg||''==user.headImg" src="resources/user/head_img/default_head.png" alt="用户头像" title="用户头像" width="128" height="128">
+			<img data-ng-show="null!=user.headImg&&''!=user.headImg" data-ng-src="resources/user/head_img/{{user.headImg}}" alt="用户头像" title="用户头像" width="128" height="128">
+		</div>
+		<form action="user/update" method="POST" id="updateUserForm">
+			<input type="hidden" name="uId" value="{{user.uId}}"/>
+			<input type="hidden" name="userName" value="{{user.userName}}"/>
+			<table>
+				<tr>
+					<td width="20%">真实姓名：</td>
+					<td width="50%"><input type="text" value="{{user.trueName}}" name="trueName"/></td>
+					<td width="30%"></td>
+				</tr>
+				<tr>
+					<td>角色：</td>
+					<td><select name="rId" data-ng-model="rId">
 						<option value="">--请选择--</option>
-					</select>
-					<select data-ng-model="city" name="city" data-ng-options="city.name as city.name for city in citys">
-						<option value="">--请选择--</option>
-					</select>
-					<select data-ng-model="region" name="region" data-ng-options="region.name as region.name for region in regions">
-						<option value="">--请选择--</option>
-					</select>
-				</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>详细地址：</td>
-				<td><input type="text" name="address" style="width:350px;"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>出生日期：</td>
-				<td><input type="text" class="laydate-icon" id="date" name="birthday" data-ng-click="getDate()" readonly="readonly"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="2"><input type="submit" value="修改" class="btn_add"/></td>
-			</tr>
-		</table>
-	</form>
+						<option data-ng-repeat="role in roles" value="{{role.rId}}" data-ng-selected="user.role.rId==role.rId">{{role.roleName}}</option>
+					</select></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>性别：</td>
+					<td><select name="sex">
+						<option value="1" data-ng-selected="user.sex==1">男</option>
+						<option value="0" data-ng-selected="user.sex==0">女</option>
+					</select></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>电话号码：</td>
+					<td><input type="text" name="phone" value="{{user.phone}}"/></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>电子邮箱：</td>
+					<td><input type="text" name="email" value="{{user.email}}"/></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>地区：</td>
+					<td>
+						<select data-ng-model="pro" name="province">
+							<option value="">--请选择--</option>
+							<option data-ng-repeat="province in provinces" value="{{province.name}}" data-ng-selected="province.name==user.province">{{province.name}}</option>
+						</select>
+						<select data-ng-model="ct" name="city">
+							<option value="">--请选择--</option>
+							<option data-ng-repeat="city in citys" value="{{city.name}}" data-ng-selected="city.name==user.city">{{city.name}}</option>
+						</select>
+						<select data-ng-model="reg" name="region">
+							<option value="">--请选择--</option>
+							<option data-ng-repeat="region in regions" value="{{region.name}}" data-ng-selected="region.name==user.region">{{region.name}}</option>
+						</select>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>详细地址：</td>
+					<td><input type="text" name="address" style="width:350px;" value="{{user.address}}"/></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>出生日期：</td>
+					<td><input type="text" class="laydate-icon" id="date" name="birthday" value="{{user.birthday}}" data-ng-click="getDate()" readonly="readonly"/></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="2"><input type="submit" value="修改" class="btn_add"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
 </div>
 <script>
 	$(document).ready(function(){

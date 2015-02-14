@@ -77,19 +77,21 @@
 	<update id="updateUsers" parameterType="users">
 		update <include refid="tab_users"/>
 		<set>
-			<if test="null!=userName or ''!=userName">user_name=#{userName}</if>
-			<if test="null!=password or ''!=password">,password=#{password},salt=#{salt}</if>
-			<if test="null!=trueName or ''!=trueName">,true_name=#{trueName}</if>
-			<if test="null!=birthday or ''!=birthday">,birthday=#{birthday}</if>
-			<if test="null!=province or ''!=province">,province=#{province}</if>
-			<if test="null!=city or ''!=city">,city=#{city}</if>
-			<if test="null!=region or ''!=region">,region=#{region}</if>
-			<if test="null!=address or ''!=address">,address=#{address}</if>
-			<if test="null!=headImg or ''!=headImg">,head_img=#{headImg}</if>
-			<if test="null!=phone or ''!=phone">,phone=#{phone}</if>
-			<if test="null!=email or ''!=email">,email=#{email}</if>
+			user_name=#{userName}
+			<if test="null!=password and ''!=password">,password=#{password},salt=#{salt}</if>
+			<if test="null!=trueName and ''!=trueName">,true_name=#{trueName}</if>
+			<if test="null!=birthday and ''!=birthday">,birthday=#{birthday}</if>
+			<if test="null!=province and ''!=province">,province=#{province}</if>
+			<if test="null!=city and ''!=city">,city=#{city}</if>
+			<if test="null!=role">,r_id=#{role.rId}</if>
+			<if test="null!=sex">,sex=#{sex}</if>
+			<if test="null!=region and ''!=region">,region=#{region}</if>
+			<if test="null!=address and ''!=address">,address=#{address}</if>
+			<if test="null!=headImg and ''!=headImg">,head_img=#{headImg}</if>
+			<if test="null!=phone and ''!=phone">,phone=#{phone}</if>
+			<if test="null!=email and ''!=email">,email=#{email}</if>
 			<if test="null!=loginTime">,login_time=#{loginTime}</if>
-			<if test="null!=ip or ''!=ip">,ip=#{ip}</if>
+			<if test="null!=ip and ''!=ip">,ip=#{ip}</if>
 		</set>
 		<where>
 			u_id=#{uId}
@@ -107,4 +109,12 @@
 	<select id="queryUserNum" resultType="int">
 		select count(u_id) from <include refid="tab_users"/>
 	</select>
+	
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="int">
+		delete from <include refid="tab_users"/> 
+		<where>
+			u_id=#{id}
+		</where>
+	</delete>
 </mapper>

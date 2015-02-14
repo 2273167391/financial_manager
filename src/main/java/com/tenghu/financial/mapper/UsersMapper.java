@@ -58,4 +58,11 @@ public interface UsersMapper {
 	 * @return
 	 */
 	public int queryUserNum();
+	
+	/**
+	 * 删除用户
+	 * @param uId
+	 * @return
+	 */
+	public int deleteUser(int uId);
 }

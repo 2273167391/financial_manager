@@ -138,5 +138,13 @@ sysApp.controller("authController",["$scope","sysService",function($scope,sysSer
 			}
 		});	
 	};
-	
+}]);
+/**
+ * 地区控制器
+ */
+sysApp.controller("regionController",["$scope","sysService",function($scope,sysService){
+	//获取地区
+	sysService.getRegions().then(function(data){
+		$("#regionTree").regionTree(data);
+	});
 }]);

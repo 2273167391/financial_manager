@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tenghu.financial.common.Constant;
 import com.tenghu.financial.context.ThreadContextHolder;
+import com.tenghu.financial.model.Users;
 import com.tenghu.financial.service.IUsersService;
 import com.tenghu.financial.utils.JsonMessageUtil;
 import com.tenghu.financial.utils.cookie.CookieUtil;
@@ -64,6 +65,28 @@ public class LoginController {
 			if(null!=oldCode&&oldCode.trim().equals(code.trim())){
 				//登录用户
 				return usersService.userLogin(userName, password);
+			}
+			return JsonMessageUtil.getErrorJSON("验证码错误");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonMessageUtil.getErrorJSON("系统异常，请稍候再试...");
+		}
+	}
+	
+	/**
+	 * 用户注册
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@ResponseBody
+	public String register(Users user,String code){
+		try {
+			//获取Session中的验证码
+			String oldCode=(String) ThreadContextHolder.getSessionContext().getAttribute(Constant.RANDOM_STR);
+			if(null!=oldCode&&oldCode.trim().equals(code.trim())){
+				//注册用户
+				return usersService.registerUser(user);
 			}
 			return JsonMessageUtil.getErrorJSON("验证码错误");
 		} catch (Exception e) {

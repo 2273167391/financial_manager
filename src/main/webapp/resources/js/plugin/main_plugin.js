@@ -99,6 +99,14 @@ $(document).ready(function(){
 			var selectedNodes=zTreeObj.getSelectedNodes();
 			return zTreeObj;//返回树对象
 		},
+		//地区树
+		regionTree:function(data){
+			var self=this;
+			//设置参数
+			var setting={};
+			var zTreeObj=$.fn.zTree.init($(this),setting,data);
+			return zTreeObj;
+		},
 		//自动选择节点
 		autoCheckNode:function(zTreeObj,nodes,authIds){
 			for(var i=0;i<nodes.length;i++){

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tenghu.financial.context.ThreadContextHolder;
+import com.tenghu.financial.mapper.RoleMapper;
 import com.tenghu.financial.mapper.UsersMapper;
+import com.tenghu.financial.model.Role;
 import com.tenghu.financial.model.Users;
 import com.tenghu.financial.model.page.PageBean;
 import com.tenghu.financial.service.IUsersService;
@@ -24,6 +26,8 @@ public class UsersServiceImpl implements IUsersService{
 	
 	@Autowired
 	private UsersMapper usersMapper;
+	@Autowired
+	private RoleMapper roleMapper;
 
 	@Override
 	public Users queryUsersByUsername(String userName) {
@@ -78,13 +82,18 @@ public class UsersServiceImpl implements IUsersService{
 
 	@Override
 	public String updateUsers(Users users) {
-		//根据用户名查询是否有用户
-		Users oldUsers=queryUsersById(users.getuId());
-		if(null!=oldUsers){
-			int result=usersMapper.updateUsers(users);
-			return result>0?JsonMessageUtil.getSuccessJSON("修改成功！"):JsonMessageUtil.getErrorJSON("修改失败！");
+		try {
+			//根据用户名查询是否有用户
+			Users oldUsers=queryUsersById(users.getuId());
+			if(null!=oldUsers){
+				int result=usersMapper.updateUsers(users);
+				return result>0?JsonMessageUtil.getSuccessJSON("修改成功！"):JsonMessageUtil.getErrorJSON("修改失败！");
+			}
+			return JsonMessageUtil.getErrorJSON("用户不存在，修改失败！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试");
 		}
-		return JsonMessageUtil.getErrorJSON("用户不存在，修改失败！");
 	}
 
 	@Override
@@ -104,5 +113,47 @@ public class UsersServiceImpl implements IUsersService{
 		pageBean.setShowRecords(usersList);
 		pageBean.setTotalCount(totalCount);
 		return pageBean;
+	}
+
+	@Override
+	public String deleteUser(int uId) {
+		try {
+			//根据用户名查询用户
+			Users user=usersMapper.queryUsersById(uId);
+			if(null!=user){
+				//执行删除
+				int result=usersMapper.deleteUser(uId);
+				return result>0?JsonMessageUtil.getSuccessJSON("删除成功！"):JsonMessageUtil.getErrorJSON("删除失败！");
+			}
+			return JsonMessageUtil.getErrorJSON("用户不存在，删除失败！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试");
+		}
+	}
+
+	@Override
+	public String registerUser(Users user) {
+		//判断用户是否存在
+		if(null==queryUsersByUsername(user.getUserName())){
+			//获取密码盐
+			String salt=SecurityPwdUtil.generateSale();
+			//加密
+			String password=SecurityPwdUtil.getSecurityPassword(user.getPassword(), salt);
+			//设置密码
+			user.setPassword(password);
+			user.setSalt(salt);
+			//获取角色
+			Role role=roleMapper.queryRoleById(2);
+			//设置角色
+			user.setRole(role);
+			user.setCreateTime(new Date());
+			user.setSex(1);
+			user.setHeadImg("default_head.png");
+			//添加用户
+			int result=usersMapper.addUsers(user);
+			return result>0?JsonMessageUtil.getSuccessJSON("注册成功"):JsonMessageUtil.getErrorJSON("注册失败");
+		}
+		return JsonMessageUtil.getErrorJSON("用户名已存在，换个用户名试试？");
 	}
 }

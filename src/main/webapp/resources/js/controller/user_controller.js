@@ -28,6 +28,7 @@ userApp.controller("userController",["$scope","$location","userService",function
 	
 	//获取分页数据
 	$scope.getPageDatas=function(){
+		
 		userService.getUserList($scope.page).then(function(data){
 			$scope.pageObject.resetModel(data);//重置数据
 			$scope.datamodel=$scope.pageObject.paginationDataModel;//设置数据模型
@@ -54,6 +55,27 @@ userApp.controller("userController",["$scope","$location","userService",function
 		$location.path("/user/update_user.html");
 		$location.search("uId="+uId);
 	};
+	
+	//删除用户
+	$scope.deleteUser=function(uId){
+		dialog.confirm({
+			title:'删除提示',
+			msg:'确定要删除该用户么？',
+			msgIcon:5,
+			determine:function(){
+				//加载框
+				var index=layer.load(0);
+				userService.deleteUser(uId).then(function(data){
+					layer.close(index);
+					if(data.result==1){
+						layer.msg(data.message,1,1,function(){$scope.getFirstPage();});
+					}else{
+						layer.msg(data.message,1,8);
+					}
+				});
+			}
+		});	
+	};
 }]);
 
 /**
@@ -61,32 +83,69 @@ userApp.controller("userController",["$scope","$location","userService",function
  */
 userApp.controller("updateUserController",["$scope","$location","userService","sysService",function($scope,$location,userService,sysService){
 	
-	//获取地区
-	sysService.getRegions().then(function(data){
-		$scope.provinces=data;
-	});
 	//获取所有角色
 	sysService.getRoleAll().then(function(data){
 		$scope.roles=data;
 	});
-	//获取用户信息
-	userService.getUsersInfo($location.search().uId).then(function(data){
-		$scope.user=data;
-		$scope.rId=data.role.rId;
-		$scope.province=data.province;
-		$scope.city=data.city;
-		$scope.region=data.region;
-	});
+	//获取个人信息
+	getUserInfo($scope,userService,sysService,$location.search().uId);
 	
+	$scope.getDate=function(){laydate(dialog.date({elem:"#date"}));};
+	//监听地区
+	listenerRegion($scope);
+}]);
+
+/**
+ * 修改用户信息控制器
+ */
+userApp.controller("updateSelfInfoController",["$scope","userService","sysService",function($scope,userService,sysService){
+	//获取个人信息
+	getUserInfo($scope,userService,sysService,$scope.user.uId);
 	
 	$scope.getDate=function(){
 		laydate(dialog.date({elem:"#date"}));
 	};
-	
+	//监听地区
+	listenerRegion($scope);
+}]);
+
+/**
+ * 获取用户信息
+ * @param $scope
+ * @param userService
+ * @param sysService
+ * @param userId
+ */
+function getUserInfo($scope,userService,sysService,userId){
+	//获取用户信息
+	userService.getUsersInfo(userId).then(function(data){
+		$scope.user=data;
+		//获取地区
+		sysService.getRegions().then(function(data){
+			$scope.provinces=data;
+			for(var i=0;i<$scope.provinces.length;i++){
+				if($scope.user.province==$scope.provinces[i].name){
+					$scope.citys=$scope.provinces[i].children;//设置当前用户的城市
+					for(var j=0;j<$scope.citys.length;j++){
+						if($scope.user.city==$scope.citys[j].name){
+							$scope.regions=$scope.citys[j].children;//设置当前用户的地区
+						}
+					}
+				}
+			}
+		});
+	});
+}
+
+/**
+ * 监听地区
+ * @param $scope
+ */
+function listenerRegion($scope){
 	$scope.citys=null;//城市
 	$scope.regions=null;//地区
 	//监听省份
-	$scope.$watch("province",function(name,oldName){
+	$scope.$watch("pro",function(name,oldName){
 		$scope.regions=null;//还原地区
 		if(name!=null){
 			for(var i=0;i<$scope.provinces.length;i++){
@@ -97,7 +156,7 @@ userApp.controller("updateUserController",["$scope","$location","userService","s
 		}
 	});
 	//监听城市
-	$scope.$watch("city",function(name,oldName){
+	$scope.$watch("ct",function(name,oldName){
 		if(name!=null){
 			for(var i=0;i<$scope.citys.length;i++){
 				if(name==$scope.citys[i].name){
@@ -106,4 +165,6 @@ userApp.controller("updateUserController",["$scope","$location","userService","s
 			}
 		}
 	});
-}]);
+}
+
+

@@ -39,7 +39,7 @@ public class DispatcherFilter implements Filter{
 		ThreadContextHolder.getSessionContext().setHttpSession(httpRequest.getSession());
 		//获取请求部分URL
 		String uri=httpRequest.getServletPath();
-		if(uri.indexOf("/index")<0&&uri.indexOf("/resources")<0){
+		if(uri.indexOf("/index")<0&&uri.indexOf("/resources")<0&&uri.indexOf("register")<0){
 			//获取HttpSession中的用户
 			Users users=(Users) ThreadContextHolder.getSessionContext().getAttribute("user");
 			if(null==users){

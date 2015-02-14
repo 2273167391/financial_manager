@@ -56,4 +56,18 @@ public interface IUsersService {
 	 * @return
 	 */
 	public PageBean<Users> queryUserPage(PageBean<Users> pageBean);
+	
+	/**
+	 * 删除用户
+	 * @param uId
+	 * @return
+	 */
+	public String deleteUser(int uId);
+	
+	/**
+	 * 注册用户
+	 * @param user
+	 * @return
+	 */
+	public String registerUser(Users user);
 }

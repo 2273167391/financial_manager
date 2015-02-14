@@ -31,7 +31,7 @@ statisticsApp.controller("yearStatisController",["$scope","statisticsService","a
 				title:$scope.status==1?$scope.year+"年"+str+"收入":$scope.year+"年"+str+"支出",
 				subTitle:"个人财务管理",
 				x:"月份",
-				y:"金额",
+				y:"金额(元)",
 				type:"year",
 				data:result
 			});
@@ -75,7 +75,7 @@ statisticsApp.controller("monthStatisticsController",["$scope","statisticsServic
 				title:$scope.status==1?month+"月"+str+"收入":month+"支"+str+"出月",
 				subTitle:"个人财务管理",
 				x:"日期/天",
-				y:"金额",
+				y:"金额(元)",
 				type:"month",
 				month:month,
 				data:result

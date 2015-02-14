@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.tenghu.financial.model.Role;
 import com.tenghu.financial.model.Users;
 import com.tenghu.financial.model.page.PageBean;
+import com.tenghu.financial.service.IRoleService;
 import com.tenghu.financial.service.IUsersService;
 import com.tenghu.financial.utils.JsonMessageUtil;
 import com.tenghu.financial.utils.SecurityPwdUtil;
@@ -25,7 +27,8 @@ public class UsersController {
 	
 	@Autowired
 	private IUsersService usersService;
-	
+	@Autowired
+	private IRoleService roleService;
 	/**
 	 * 获取用户信息
 	 * @return
@@ -61,5 +64,28 @@ public class UsersController {
 	@ResponseBody
 	public PageBean<Users> queryUserPage(@ModelAttribute("page") PageBean<Users> pageBean){
 		return usersService.queryUserPage(pageBean);
+	}
+	
+	/**
+	 * 更新用户
+	 * @param user
+	 * @param rId
+	 * @return
+	 */
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateUser(Users user,int rId){
+		//根据角色id查询角色
+		Role role=roleService.queryRoleById(rId);
+		//设置用户角色
+		user.setRole(role);
+		//更新用户
+		return usersService.updateUsers(user);
+	}
+	
+	@RequestMapping(value="/delete/{id}")
+	@ResponseBody
+	public String deleteUser(@PathVariable("id") int uId){
+		return usersService.deleteUser(uId);
 	}
 }

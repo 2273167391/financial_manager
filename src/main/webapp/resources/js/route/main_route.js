@@ -27,5 +27,9 @@ mainApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:"user/user_list.html"
 	}).when("/user/update_user.html",{
 		templateUrl:"user/update_user.html"
+	}).when("/sys/region/region_manager.html",{
+		templateUrl:"sys/region/region_manager.html"
+	}).when("/user/update_self_info.html",{
+		templateUrl:"user/update_self_info.html"
 	});
 }]);
