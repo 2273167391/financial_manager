@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>个人财务管理</title>
+	<meta charset="utf-8"/>
+	<meta name="keywords" content="个人财务管理"/>
+	<meta name="description" content="个人财务管理是对个人的日常的开支进行管理，方便于每个月对财务的统计"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="resources/css/login.css"/>
+	<link rel="shortcut icon" href="resources/images/ico/favicon.ico" mce_href="resources/images/ico/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="resources/js/jquery/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="resources/js/plugin/form.validate.js"></script>
+	<script type="text/javascript" src="resources/js/layer/layer.min.js"></script>
+</head>
+<body>
+	<div id="login_container">
+		<p class="title">用户注册</p>
+		<div class="login_box">
+			<form action="index/register" method="POST" id="registerForm">
+				<div class="login_box_form">
+					<div class="login_username">
+						<input type="text" name="userName" placeholder="请输入用户名"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_pwd">
+						<input type="password" name="password" id="pwd" placeholder="请输入密码"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_pwd">
+						<input type="password" name="conPwd" placeholder="请再次输入密码"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_username">
+						<input type="text" name="trueName" placeholder="请输入真实姓名"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+					<div class="login_code">
+						<input type="text" name="code" placeholder="请输入验证码"/>
+						<img src="index/codeServlet" title="验证码" alt="验证码" width="80" height="35" onclick="getCode(this)"/>
+						<p class="triangle_prompt_box"></p>
+					</div>
+				</div>
+				<div class="login_submit">
+					<span></span>
+					<span><input type="submit" value="注册"/></span>
+				</div>
+			<form>
+			<p class="register">已有账号<a href="index.html">立即登录</a></p>
+		</div>
+		<p class="login_footer">版权所有&nbsp;&nbsp;&nbsp;腾虎科技有限公司</p>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#registerForm").registerForm({
+				prompt_box_class:"triangle_prompt_box"
+			});
+
+			//设置登录框位置
+			var wHeight=$(window).height();
+			var loginContainer=$("#login_container");
+			loginContainer.css({
+				"left":($(window).width()-loginContainer.width())/2
+			}).animate(
+				{"top":(wHeight-loginContainer.height())/2-50},300,
+				function(){
+					$(this).animate({"top":$(this).offset().top-50},100,function(){
+						$(this).animate({"top":$(this).offset().top+50},100);
+					});
+				});
+		});
+		//获取验证码
+		function getCode(obj){
+			$(obj).attr("src","index/codeServlet?time="+new Date().getTime());
+		}
+	</script>
+</body>
+</html>

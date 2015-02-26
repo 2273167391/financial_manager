@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tenghu.financial.context.ThreadContextHolder;
@@ -23,6 +26,7 @@ import com.tenghu.financial.utils.SecurityPwdUtil;
  */
 @Service
 public class UsersServiceImpl implements IUsersService{
+	private final Logger log=LoggerFactory.getLogger(UsersServiceImpl.class);
 	
 	@Autowired
 	private UsersMapper usersMapper;
@@ -92,6 +96,7 @@ public class UsersServiceImpl implements IUsersService{
 			return JsonMessageUtil.getErrorJSON("用户不存在，修改失败！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("UsersServiceImpl->updateUser:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试");
 		}
 	}
@@ -128,6 +133,7 @@ public class UsersServiceImpl implements IUsersService{
 			return JsonMessageUtil.getErrorJSON("用户不存在，删除失败！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("UsersServiceImpl->deleteUser:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试");
 		}
 	}

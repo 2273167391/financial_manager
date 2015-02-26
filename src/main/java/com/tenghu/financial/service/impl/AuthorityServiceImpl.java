@@ -1,6 +1,9 @@
 package com.tenghu.financial.service.impl;
 import java.util.Date;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tenghu.financial.mapper.AuthorityMapper;
@@ -17,6 +20,7 @@ import com.tenghu.financial.utils.JsonMessageUtil;
 
 @Service
 public class AuthorityServiceImpl implements IAuthorityService{
+	private final Logger log=LoggerFactory.getLogger(AuthorityServiceImpl.class);
 	
 	@Autowired
 	private AuthorityMapper authorityMapper;
@@ -60,6 +64,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			return result>0?JsonMessageUtil.getSuccessJSON("添加成功"):JsonMessageUtil.getErrorJSON("添加失败");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AuthorityServiceImpl->addAuth:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试！");
 		}
 		
@@ -77,6 +82,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			return result>0?JsonMessageUtil.getSuccessJSON("删除成功"):JsonMessageUtil.getErrorJSON("删除失败");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AuthorityServiceImpl->deleteAuth:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试！");
 		}
 	}
@@ -89,6 +95,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			return result>0?JsonMessageUtil.getSuccessJSON("修改成功"):JsonMessageUtil.getErrorJSON("修改失败");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AuthorityServiceImpl->updateAuth:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试！");
 		}
 	}

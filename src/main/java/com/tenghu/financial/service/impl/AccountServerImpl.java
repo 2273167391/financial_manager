@@ -2,6 +2,8 @@ package com.tenghu.financial.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.tenghu.financial.mapper.AccountMapper;
@@ -16,6 +18,8 @@ import com.tenghu.financial.utils.JsonMessageUtil;
  */
 @Service
 public class AccountServerImpl implements IAccountServer{
+	
+	private final Logger log=LoggerFactory.getLogger(AccountServerImpl.class);
 	
 	@Autowired
 	private AccountMapper accountMapper;
@@ -33,6 +37,7 @@ public class AccountServerImpl implements IAccountServer{
 			return result>0?JsonMessageUtil.getSuccessJSON("添加成功！"):JsonMessageUtil.getErrorJSON("添加失败！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AccountServerImpl->addAccount:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍后再试！");
 		}
 	}

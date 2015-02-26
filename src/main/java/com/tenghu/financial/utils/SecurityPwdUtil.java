@@ -8,12 +8,16 @@ import java.security.spec.KeySpec;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 安全密码工具类
  * @author Arvin_Li
  *
  */
 public class SecurityPwdUtil {
+	private static final Logger log=LoggerFactory.getLogger(SecurityPwdUtil.class);
 	private SecurityPwdUtil(){}
 	
 	/**
@@ -47,8 +51,10 @@ public class SecurityPwdUtil {
 			pwds = sdf.generateSecret(spec).getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			log.debug("SecurityPwdUtil->getSecurityPassword:"+e.getMessage());
 		} catch (InvalidKeySpecException e) {
 			e.printStackTrace();
+			log.debug("SecurityPwdUtil->getSecurityPassword:"+e.getMessage());
 		}
 		
 		return pwds == null ? "" : StringUtil.byteToStr(pwds);
@@ -65,6 +71,7 @@ public class SecurityPwdUtil {
 			random.nextBytes(salt);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			log.debug("SecurityPwdUtil->generateSale:"+e.getMessage());
 		}
 		return StringUtil.byteToStr(salt);
 	}

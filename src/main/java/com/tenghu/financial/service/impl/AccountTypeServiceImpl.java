@@ -3,6 +3,8 @@ package com.tenghu.financial.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import com.tenghu.financial.utils.JsonMessageUtil;
  */
 @Service
 public class AccountTypeServiceImpl implements IAccountTypeService{
+	private final Logger log=LoggerFactory.getLogger(AccountTypeServiceImpl.class);
 	
 	@Autowired
 	private AccountTypeMapper accountTypeMapper;
@@ -45,6 +48,7 @@ public class AccountTypeServiceImpl implements IAccountTypeService{
 			return JsonMessageUtil.getErrorJSON("账目类型已存在！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AccountTypeServiceImpl->addAccountType:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍候再试！");
 		}
 	}
@@ -66,6 +70,7 @@ public class AccountTypeServiceImpl implements IAccountTypeService{
 			return JsonMessageUtil.getErrorJSON("账目类型不存在！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AccountTypeServiceImpl->updateAccountTypeById:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍候再试！");
 		}
 	}
@@ -88,6 +93,7 @@ public class AccountTypeServiceImpl implements IAccountTypeService{
 			return JsonMessageUtil.getErrorJSON("账目类型不存在！");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.debug("AccountTypeServiceImpl->deleteAccountTypeById:"+e.getMessage());
 			return JsonMessageUtil.getErrorJSON("系统异常，请稍候再试！");
 		}
 	}

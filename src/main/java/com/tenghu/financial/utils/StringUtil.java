@@ -3,6 +3,9 @@ package com.tenghu.financial.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 字符串工具类
  * @author Arvin_Li
@@ -10,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class StringUtil {
 	private StringUtil(){}
+	private static final Logger log =LoggerFactory.getLogger(StringUtil.class);
 	
 	/**
 	 * Md5加密
@@ -27,6 +31,7 @@ public class StringUtil {
 			encryStr=byteToStr(bytes);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			log.debug("StringUtil->md5Encryption"+e.getMessage());
 		}
 		return encryStr;
 	}
